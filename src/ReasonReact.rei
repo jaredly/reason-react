@@ -1,3 +1,33 @@
+
+/** # ReasonReact
+ *
+ * This is the main exposted API.
+ *
+ * ## Element creators
+ *
+ * @doc stringToElement, arrayToElement, nullElement
+ *
+ * ## Component constructors
+ *
+ * @doc statelessComponent, reducerComponent, statelessComponentWithRetainedProps, reducerComponentWithRetainedProps
+ *
+ * ## JavaScript Interop
+ *
+ * @doc wrapReasonForJs, wrapJsForReason, createDomElement, jsPropsToReason, refToJsObj
+ *
+ * ## The Router
+ *
+ * @doc Router
+ *
+ * ## Event handling
+ *
+ * @doc Callback
+ *
+ * ## The types you'll encounter
+ *
+ * @doc self, update, reduce, subscription, oldNewSelf, componentSpec
+ */;
+
 /***
  * This API assumes that JSX will desugar <Foo key ref attr1=val1 attrn=valn /> into:
  *
@@ -32,10 +62,22 @@ type reactRef;
 
 [@bs.val] external nullElement : reactElement = "null";
 
+/** Use this for creating an element that's just text.
+ *
+ * In Reason's JSX, text is not automatically wrapped, you have to do it manually:
+ *
+ * ```
+ * <div>
+ *  (ReasonReact.stringToElement("Hello folks"))
+ * </div>
+ * ```
+*/
 external stringToElement : string => reactElement = "%identity";
 
+/** Convert an array of keyed react elements to a react element. */
 external arrayToElement : array(reactElement) => reactElement = "%identity";
 
+/** **Unsafe** get an untyped javascript object representation of a react ref. */
 external refToJsObj : reactRef => Js.t({..}) = "%identity";
 
 [@bs.splice] [@bs.val] [@bs.module "react"]
@@ -52,8 +94,7 @@ type renderNotImplemented =
   | RenderNotImplemented;
 
 
-/***
- * A stateless component is a component with state of type unit. This cannot be
+/** A stateless component is a component with state of type unit. This cannot be
  * abstract for now, because a stateless component's willReceiveProps needs to
  * return the state, aka unit. We can provide a helper
  * ReasonReact.statelessReturn that's of type `stateless`, but that's verbose
@@ -63,29 +104,28 @@ type stateless = unit;
 type noRetainedProps;
 
 
-/*** An actionless component is a component with actions of type unit */
+/** An actionless component is a component with actions of type unit */
 type actionless = unit;
 
 module Callback: {
 
-  /***
-   Type for callbacks
-
-   This type can be left abstract to prevent calling the callback directly.
-   For example, calling `update handler event` would force an immediate
-   call of `handler` with the current state, and can be prevented by defining:
-
-     type t('payload);
-
-    However, we do want to support immediate calling of a handler, as an escape hatch for the existing async
-    setState reactJS pattern
-    */
+  /** Type for callbacks
+   *
+   * This type can be left abstract to prevent calling the callback directly.
+   * For example, calling `update handler event` would force an immediate
+   * call of `handler` with the current state, and can be prevented by defining:
+   *
+   *     type t('payload);
+   *
+   * However, we do want to support immediate calling of a handler, as an escape hatch for the existing async
+   * setState reactJS pattern
+   */
   type t('payload) = 'payload => unit;
 
-  /*** Default no-op callback */
+  /** Default no-op callback */
   let default: t('payload);
 
-  /*** Chain two callbacks by executing the first before the second one */
+  /** Chain two callbacks by executing the first before the second one */
   let chain: (t('payload), t('payload)) => t('payload);
 };
 
@@ -121,7 +161,7 @@ type update('state, 'retainedProps, 'action) =
       self('state, 'retainedProps, 'action) => unit,
     )
 and self('state, 'retainedProps, 'action) = {
-  /***
+  /**
    * Call a handler function.
    *
    * The callback is passed the payload and current state immediately.
@@ -132,7 +172,7 @@ and self('state, 'retainedProps, 'action) = {
     (('payload, self('state, 'retainedProps, 'action)) => unit) =>
     Callback.t('payload),
 
-  /***
+  /**
    * Run the reducer function with the action returned by the fuction passed as first argument.
    *
    * The reducer lifecycle has two phases:
@@ -153,7 +193,7 @@ and self('state, 'retainedProps, 'action) = {
 type reactClassInternal;
 
 
-/*** For internal use only */
+/** For internal use only */
 type jsElementWrapped;
 
 type oldNewSelf('state, 'retainedProps, 'action) = {
@@ -172,7 +212,7 @@ type componentSpec(
   reactClassInternal,
   /* Keep here as a way to prove that the API may be implemented soundly */
   mutable handedOffState: ref(option('state)),
-  /*** Callback invoked when the component receives new props or state.
+  /** Callback invoked when the component receives new props or state.
    * Note: this callback must not perform side effects.
    */
   willReceiveProps: self('state, 'retainedProps, 'action) => 'state,
@@ -186,7 +226,7 @@ type componentSpec(
   render: self('state, 'retainedProps, 'action) => reactElement,
   initialState: unit => 'initialState,
   retainedProps: 'initialRetainedProps,
-  /*** Reducer callback.
+  /** Reducer callback.
    *
    * The callback is invoked by the reduce function contained in self.
    * A state update is scheduled based on the action passed, and added to the queue of pending updates.
@@ -206,7 +246,7 @@ and component('state, 'retainedProps, 'action) =
   componentSpec('state, 'state, 'retainedProps, 'retainedProps, 'action);
 
 
-/*** Create a stateless component: i.e. a component where state has type stateless. */
+/** Create a stateless component: i.e. a component where state has type stateless. */
 let statelessComponent:
   string =>
   componentSpec(
@@ -247,7 +287,7 @@ type jsPropsToReason('jsProps, 'state, 'retainedProps, 'action) =
   Js.t('jsProps) => component('state, 'retainedProps, 'action);
 
 
-/***
+/**
  * We *under* constrain the kind of component spec this accepts because we actually extend the *originally*
  * defined component. It uses mutation on the original component, so that even if it is extended with
  * {...component}, all extensions will also see the underlying js class. I can sleep at night because js
