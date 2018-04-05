@@ -18,7 +18,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/reasonml/reason-react.git"
+    "url": "jaredly/reason-react"
   },
   "homepage": "https://reasonml.github.io/reason-react/",
   "devDependencies": {

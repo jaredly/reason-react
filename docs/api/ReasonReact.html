@@ -1,0 +1,470 @@
+
+    
+<!doctype html>
+<meta charset=utf8>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel=stylesheet href='../styles.css'>
+<script defer src='../script.js'></script>
+<title>ReasonReact</title>
+<body>
+<script>window.relativeToRoot=".."</script>
+<div id='error-message'>
+  ⚠️ Oops! This page doesn't appear to define a <span>type</span> called <code>_</code>.
+</div>
+
+    <script>window.shouldCheckHashes=true</script>
+    <div class='container'>
+    
+    <div class='sidebar-wrapper'>
+    <div class='sidebar-expander'>Show navigation</div>
+    <div class='sidebar'>
+      <a href="../search.html" style="display: block; padding: 0 8px;">Search</a>
+      <div class='docs-listing'><a href="../index.html">Home</a>
+<a href="../callback-handlers.html">callback-handlers</a>
+<a href="../children.html">children</a>
+<a href="../clone-element.html">clone-element</a>
+<a href="../community.html">community</a>
+<a href="../component-as-prop.html">component-as-prop</a>
+<a href="../context-mixins.html">context-mixins</a>
+<a href="../counter.html">counter</a>
+<a href="../creation-props-self.html">creation-props-self</a>
+<a href="../custom-class-component-property.html">custom-class-component-property</a>
+<a href="../dom.html">dom</a>
+<a href="../element-type-is-invalid.html">element-type-is-invalid</a>
+<a href="../event.html">event</a>
+<a href="../example-projects.html">example-projects</a>
+<a href="../functional-component.html">functional-component</a>
+<a href="../i-really-need-feature-x-from-reactjs.html">i-really-need-feature-x-from-reactjs</a>
+<a href="../im-having-a-type-error.html">im-having-a-type-error</a>
+<a href="../installation.html">installation</a>
+<a href="../instance-variables.html">instance-variables</a>
+<a href="../interop.html">interop</a>
+<a href="../intro-example.html">intro-example</a>
+<a href="../invalid-prop-name.html">invalid-prop-name</a>
+<a href="../js-using-reason.html">js-using-reason</a>
+<a href="../jsx.html">jsx</a>
+<a href="../lifecycles.html">lifecycles</a>
+<a href="../playground.html">playground</a>
+<a href="../props-spread.html">props-spread</a>
+<a href="../react-ref.html">react-ref</a>
+<a href="../reason-using-js.html">reason-using-js</a>
+<a href="../record-field-send-handle-not-found.html">record-field-send-handle-not-found</a>
+<a href="../render.html">render</a>
+<a href="../retained-props.html">retained-props</a>
+<a href="../roadmap.html">roadmap</a>
+<a href="../router.html">router</a>
+<a href="../send-handle-callbacks-having-incompatible-types.html">send-handle-callbacks-having-incompatible-types</a>
+<a href="../simple.html">simple</a>
+<a href="../state-actions-reducer.html">state-actions-reducer</a>
+<a href="../style.html">style</a>
+<a href="../subscriptions-helper.html">subscriptions-helper</a>
+<a href="../ternary-shortcut.html">ternary-shortcut</a>
+<a href="../what-and-why.html">what-and-why</a></div>
+      <div class='table-of-contents'>
+      <div class='toc-header'>Page Contents</div>
+      <a href="#ReasonReact" class='level-1 header'>ReasonReact</a>
+<a href="#type-reactClass" class='level-2 type'>reactClass</a>
+<a href="#type-reactElement" class='level-2 type'>reactElement</a>
+<a href="#type-reactRef" class='level-2 type'>reactRef</a>
+<a href="#value-nullElement" class='level-2 value'>nullElement</a>
+<a href="#value-stringToElement" class='level-2 value'>stringToElement</a>
+<a href="#value-arrayToElement" class='level-2 value'>arrayToElement</a>
+<a href="#value-refToJsObj" class='level-2 value'>refToJsObj</a>
+<a href="#value-createElement" class='level-2 value'>createElement</a>
+<a href="#value-cloneElement" class='level-2 value'>cloneElement</a>
+<a href="#type-renderNotImplemented" class='level-2 type'>renderNotImplemented</a>
+<a href="#type-stateless" class='level-2 type'>stateless</a>
+<a href="#type-noRetainedProps" class='level-2 type'>noRetainedProps</a>
+<a href="#type-actionless" class='level-2 type'>actionless</a>
+<a href="#module-Callback" class='level-2 module'>Callback</a>
+<a href="#type-Callback.t" class='level-3 type'>t</a>
+<a href="#value-Callback.default" class='level-3 value'>default</a>
+<a href="#value-Callback.chain" class='level-3 value'>chain</a>
+<a href="#type-subscription" class='level-2 type'>subscription</a>
+<a href="#type-reduce" class='level-2 type'>reduce</a>
+<a href="#type-update" class='level-2 type'>update</a>
+<a href="#type-self" class='level-2 type'>self</a>
+<a href="#type-reactClassInternal" class='level-2 type'>reactClassInternal</a>
+<a href="#type-jsElementWrapped" class='level-2 type'>jsElementWrapped</a>
+<a href="#type-oldNewSelf" class='level-2 type'>oldNewSelf</a>
+<a href="#type-componentSpec" class='level-2 type'>componentSpec</a>
+<a href="#type-component" class='level-2 type'>component</a>
+<a href="#value-statelessComponent" class='level-2 value'>statelessComponent</a>
+<a href="#value-statelessComponentWithRetainedProps" class='level-2 value'>statelessComponentWithRetainedProps</a>
+<a href="#value-reducerComponent" class='level-2 value'>reducerComponent</a>
+<a href="#value-reducerComponentWithRetainedProps" class='level-2 value'>reducerComponentWithRetainedProps</a>
+<a href="#value-element" class='level-2 value'>element</a>
+<a href="#type-jsPropsToReason" class='level-2 type'>jsPropsToReason</a>
+<a href="#value-wrapReasonForJs" class='level-2 value'>wrapReasonForJs</a>
+<a href="#value-createDomElement" class='level-2 value'>createDomElement</a>
+<a href="#value-wrapJsForReason" class='level-2 value'>wrapJsForReason</a>
+<a href="#module-Router" class='level-2 module'>Router</a>
+<a href="#value-Router.push" class='level-3 value'>push</a>
+<a href="#type-Router.watcherID" class='level-3 type'>watcherID</a>
+<a href="#type-Router.url" class='level-3 type'>url</a>
+<a href="#value-Router.watchUrl" class='level-3 value'>watchUrl</a>
+<a href="#value-Router.unwatchUrl" class='level-3 value'>unwatchUrl</a>
+<a href="#value-Router.dangerouslyGetInitialUrl" class='level-3 value'>dangerouslyGetInitialUrl</a>
+      </div>
+      <div class='project-listing'><div class='project-title'>Package modules</div><a href="ReactDOMRe.html">ReactDOMRe</a>
+<a href="ReactDOMServerRe.html">ReactDOMServerRe</a>
+<a href="ReactEventRe.html">ReactEventRe</a>
+<a href="ReasonReact.html">ReasonReact</a>
+<a href="ReasonReactOptimizedCreateClass.html">ReasonReactOptimizedCreateClass</a></div>
+    </div>
+    </div>
+  
+    <div class='main'>
+    
+    <a href="#ReasonReact" id="ReasonReact"><h1>ReasonReact</h1></a>
+
+<p><span class='missing'>This module does not have a toplevel documentation block.</span></p>
+<div class='doc-item'><h4 class='item'>type <a href="#type-reactClass" id="type-reactClass">reactClass</a></h4>
+
+<div class='body body-empty'><span class='missing'>No documentation for this type</span></div></div>
+
+<div class='doc-item'><h4 class='item'>type <a href="#type-reactElement" id="type-reactElement">reactElement</a></h4>
+
+<div class='body body-empty'><span class='missing'>No documentation for this type</span></div></div>
+
+<div class='doc-item'><h4 class='item'>type <a href="#type-reactRef" id="type-reactRef">reactRef</a></h4>
+
+<div class='body body-empty'><span class='missing'>No documentation for this type</span></div></div>
+
+<div class='doc-item'><h4 class='item'>let <a href="#value-nullElement" id="value-nullElement">nullElement</a> = <a href="#type-reactElement">reactElement</a></h4>
+
+<div class='body body-empty'><span class='missing'>No documentation for this value</span></div></div>
+
+<div class='doc-item'><h4 class='item'>let <a href="#value-stringToElement" id="value-stringToElement">stringToElement</a> = (string) => <a href="#type-reactElement">reactElement</a></h4>
+
+<div class='body body-empty'><span class='missing'>No documentation for this value</span></div></div>
+
+<div class='doc-item'><h4 class='item'>let <a href="#value-arrayToElement" id="value-arrayToElement">arrayToElement</a> = (array(<a href="#type-reactElement">reactElement</a>)) => <a href="#type-reactElement">reactElement</a></h4>
+
+<div class='body body-empty'><span class='missing'>No documentation for this value</span></div></div>
+
+<div class='doc-item'><h4 class='item'>let <a href="#value-refToJsObj" id="value-refToJsObj">refToJsObj</a> = (<a href="#type-reactRef">reactRef</a>) => Js.t(&lt; .. &gt;)</h4>
+
+<div class='body body-empty'><span class='missing'>No documentation for this value</span></div></div>
+
+<div class='doc-item'><h4 class='item'>let <a href="#value-createElement" id="value-createElement">createElement</a> = (
+    <a href="#type-reactClass">reactClass</a>,
+    ~?props: option(Js.t(&lt; .. &gt;)),
+    array(<a href="#type-reactElement">reactElement</a>)
+) => <a href="#type-reactElement">reactElement</a></h4>
+
+<div class='body body-empty'><span class='missing'>No documentation for this value</span></div></div>
+
+<div class='doc-item'><h4 class='item'>let <a href="#value-cloneElement" id="value-cloneElement">cloneElement</a> = (
+    <a href="#type-reactElement">reactElement</a>,
+    ~?props: option(Js.t(&lt; .. &gt;)),
+    array(<a href="#type-reactElement">reactElement</a>)
+) => <a href="#type-reactElement">reactElement</a></h4>
+
+<div class='body body-empty'><span class='missing'>No documentation for this value</span></div></div>
+
+<div class='doc-item'><h4 class='item'>type <a href="#type-renderNotImplemented" id="type-renderNotImplemented">renderNotImplemented</a> = | RenderNotImplemented</h4>
+
+<div class='body body-empty'><span class='missing'>No documentation for this type</span></div></div>
+
+<div class='doc-item'><h4 class='item'>type <a href="#type-stateless" id="type-stateless">stateless</a> = unit</h4>
+
+<div class='body body-empty'><span class='missing'>No documentation for this type</span></div></div>
+
+<div class='doc-item'><h4 class='item'>type <a href="#type-noRetainedProps" id="type-noRetainedProps">noRetainedProps</a></h4>
+
+<div class='body body-empty'><span class='missing'>No documentation for this type</span></div></div>
+
+<div class='doc-item'><h4 class='item'>type <a href="#type-actionless" id="type-actionless">actionless</a> = unit</h4>
+
+<div class='body body-empty'><span class='missing'>No documentation for this type</span></div></div>
+
+<div class='doc-item'><h4 class='item module'>module <a href="#module-Callback" id="module-Callback">Callback</a></h4><div class='body module-body'><p><span class='missing'>This module does not have a toplevel documentation block.</span></p>
+<div class='doc-item'><h4 class='item'>type <a href="#type-Callback.t" id="type-Callback.t">t</a>('payload) = ('payload) => unit</h4>
+
+<div class='body body-empty'><span class='missing'>No documentation for this type</span></div></div>
+
+<div class='doc-item'><h4 class='item'>let <a href="#value-Callback.default" id="value-Callback.default">default</a> = <a href="#type-Callback.t">t</a>('payload)</h4>
+
+<div class='body body-empty'><span class='missing'>No documentation for this value</span></div></div>
+
+<div class='doc-item'><h4 class='item'>let <a href="#value-Callback.chain" id="value-Callback.chain">chain</a> = (<a href="#type-Callback.t">t</a>('payload), <a href="#type-Callback.t">t</a>('payload)) => <a href="#type-Callback.t">t</a>('payload)</h4>
+
+<div class='body body-empty'><span class='missing'>No documentation for this value</span></div></div>
+</div></div>
+
+<div class='doc-item'><h4 class='item'>type <a href="#type-subscription" id="type-subscription">subscription</a> = 
+    | Sub((unit) => 'token, ('token) => unit): <a href="#type-subscription">subscription</a></h4>
+
+<div class='body '><ul><li>Subscriptions handle resources that need to be initialized and finalized.
+Initialization returns a token, and finalization consumes a token.</li></ul></div></div>
+
+<div class='doc-item'><h4 class='item'>type <a href="#type-reduce" id="type-reduce">reduce</a>('payload, 'action) = (
+    ('payload) => 'action
+) => <a href="#module-Callback">Callback</a>.<a href="#type-Callback.t">t</a>('payload)</h4>
+
+<div class='body body-empty'><span class='missing'>No documentation for this type</span></div></div>
+
+<div class='doc-item'><h4 class='item'>type <a href="#type-update" id="type-update">update</a>('state, 'retainedProps, 'action) = 
+    | NoUpdate
+    | Update('state)
+    | SideEffects(
+        (<a href="#type-self">self</a>('state, 'retainedProps, 'action)) => unit
+    )
+    | UpdateWithSideEffects(
+        'state,
+        (<a href="#type-self">self</a>('state, 'retainedProps, 'action)) => unit
+    )</h4>
+
+<div class='body body-empty'><span class='missing'>No documentation for this type</span></div></div>
+
+<div class='doc-item'><h4 class='item'>type <a href="#type-self" id="type-self">self</a>('state, 'retainedProps, 'action) = {
+    handle: 'payload.
+  ('payload -&gt; ('state, 'retainedProps, 'action) self -&gt; unit) -&gt;
+  'payload Callback.t,
+    reduce: 'payload. ('payload, 'action) reduce,
+    state: 'state,
+    retainedProps: 'retainedProps,
+    send: ('action) => unit,
+    onUnmount: ((unit) => unit) => unit
+}</h4>
+
+<div class='body body-empty'><span class='missing'>No documentation for this type</span></div></div>
+
+<div class='doc-item'><h4 class='item'>type <a href="#type-reactClassInternal" id="type-reactClassInternal">reactClassInternal</a></h4>
+
+<div class='body body-empty'><span class='missing'>No documentation for this type</span></div></div>
+
+<div class='doc-item'><h4 class='item'>type <a href="#type-jsElementWrapped" id="type-jsElementWrapped">jsElementWrapped</a></h4>
+
+<div class='body body-empty'><span class='missing'>No documentation for this type</span></div></div>
+
+<div class='doc-item'><h4 class='item'>type <a href="#type-oldNewSelf" id="type-oldNewSelf">oldNewSelf</a>('state, 'retainedProps, 'action) = {
+    oldSelf: <a href="#type-self">self</a>('state, 'retainedProps, 'action),
+    newSelf: <a href="#type-self">self</a>('state, 'retainedProps, 'action)
+}</h4>
+
+<div class='body body-empty'><span class='missing'>No documentation for this type</span></div></div>
+
+<div class='doc-item'><h4 class='item'>type <a href="#type-componentSpec" id="type-componentSpec">componentSpec</a>(
+    'state,
+    'initialState,
+    'retainedProps,
+    'initialRetainedProps,
+    'action
+) = {
+    debugName: string,
+    reactClassInternal: <a href="#type-reactClassInternal">reactClassInternal</a>,
+    mut handedOffState: Pervasives.ref(option('state)),
+    willReceiveProps: (
+        <a href="#type-self">self</a>('state, 'retainedProps, 'action)
+    ) => 'state,
+    didMount: (
+        <a href="#type-self">self</a>('state, 'retainedProps, 'action)
+    ) => <a href="#type-update">update</a>('state, 'retainedProps, 'action),
+    didUpdate: (
+        <a href="#type-oldNewSelf">oldNewSelf</a>(
+            'state,
+            'retainedProps,
+            'action
+        )
+    ) => unit,
+    willUnmount: (
+        <a href="#type-self">self</a>('state, 'retainedProps, 'action)
+    ) => unit,
+    willUpdate: (
+        <a href="#type-oldNewSelf">oldNewSelf</a>(
+            'state,
+            'retainedProps,
+            'action
+        )
+    ) => unit,
+    shouldUpdate: (
+        <a href="#type-oldNewSelf">oldNewSelf</a>(
+            'state,
+            'retainedProps,
+            'action
+        )
+    ) => bool,
+    render: (
+        <a href="#type-self">self</a>(
+            'state,
+            'retainedProps,
+            'action
+        )
+    ) => <a href="#type-reactElement">reactElement</a>,
+    initialState: (unit) => 'initialState,
+    retainedProps: 'initialRetainedProps,
+    reducer: ('action, 'state) => <a href="#type-update">update</a>(
+        'state,
+        'retainedProps,
+        'action
+    ),
+    subscriptions: (
+        <a href="#type-self">self</a>('state, 'retainedProps, 'action)
+    ) => list(<a href="#type-subscription">subscription</a>),
+    jsElementWrapped: <a href="#type-jsElementWrapped">jsElementWrapped</a>
+}</h4>
+
+<div class='body body-empty'><span class='missing'>No documentation for this type</span></div></div>
+
+<div class='doc-item'><h4 class='item'>type <a href="#type-component" id="type-component">component</a>(
+    'state,
+    'retainedProps,
+    'action
+) = <a href="#type-componentSpec">componentSpec</a>(
+    'state,
+    'state,
+    'retainedProps,
+    'retainedProps,
+    'action
+)</h4>
+
+<div class='body body-empty'><span class='missing'>No documentation for this type</span></div></div>
+
+<div class='doc-item'><h4 class='item'>let <a href="#value-statelessComponent" id="value-statelessComponent">statelessComponent</a> = (string) => <a href="#type-componentSpec">componentSpec</a>(
+    <a href="#type-stateless">stateless</a>,
+    <a href="#type-stateless">stateless</a>,
+    <a href="#type-noRetainedProps">noRetainedProps</a>,
+    <a href="#type-noRetainedProps">noRetainedProps</a>,
+    <a href="#type-actionless">actionless</a>
+)</h4>
+
+<div class='body body-empty'><span class='missing'>No documentation for this value</span></div></div>
+
+<div class='doc-item'><h4 class='item'>let <a href="#value-statelessComponentWithRetainedProps" id="value-statelessComponentWithRetainedProps">statelessComponentWithRetainedProps</a> = (
+    string
+) => <a href="#type-componentSpec">componentSpec</a>(
+    <a href="#type-stateless">stateless</a>,
+    <a href="#type-stateless">stateless</a>,
+    'retainedProps,
+    <a href="#type-noRetainedProps">noRetainedProps</a>,
+    <a href="#type-actionless">actionless</a>
+)</h4>
+
+<div class='body body-empty'><span class='missing'>No documentation for this value</span></div></div>
+
+<div class='doc-item'><h4 class='item'>let <a href="#value-reducerComponent" id="value-reducerComponent">reducerComponent</a> = (string) => <a href="#type-componentSpec">componentSpec</a>(
+    'state,
+    <a href="#type-stateless">stateless</a>,
+    <a href="#type-noRetainedProps">noRetainedProps</a>,
+    <a href="#type-noRetainedProps">noRetainedProps</a>,
+    'action
+)</h4>
+
+<div class='body body-empty'><span class='missing'>No documentation for this value</span></div></div>
+
+<div class='doc-item'><h4 class='item'>let <a href="#value-reducerComponentWithRetainedProps" id="value-reducerComponentWithRetainedProps">reducerComponentWithRetainedProps</a> = (
+    string
+) => <a href="#type-componentSpec">componentSpec</a>(
+    'state,
+    <a href="#type-stateless">stateless</a>,
+    'retainedProps,
+    <a href="#type-noRetainedProps">noRetainedProps</a>,
+    'action
+)</h4>
+
+<div class='body body-empty'><span class='missing'>No documentation for this value</span></div></div>
+
+<div class='doc-item'><h4 class='item'>let <a href="#value-element" id="value-element">element</a> = (
+    ~?key: option(string),
+    ~?ref: option((Js.nullable(<a href="#type-reactRef">reactRef</a>)) => unit),
+    <a href="#type-component">component</a>(
+        'state,
+        'retainedProps,
+        'action
+    )
+) => <a href="#type-reactElement">reactElement</a></h4>
+
+<div class='body body-empty'><span class='missing'>No documentation for this value</span></div></div>
+
+<div class='doc-item'><h4 class='item'>type <a href="#type-jsPropsToReason" id="type-jsPropsToReason">jsPropsToReason</a>(
+    'jsProps,
+    'state,
+    'retainedProps,
+    'action
+) = (Js.t('jsProps)) => <a href="#type-component">component</a>(
+    'state,
+    'retainedProps,
+    'action
+)</h4>
+
+<div class='body body-empty'><span class='missing'>No documentation for this type</span></div></div>
+
+<div class='doc-item'><h4 class='item'>let <a href="#value-wrapReasonForJs" id="value-wrapReasonForJs">wrapReasonForJs</a> = (
+    ~component: <a href="#type-componentSpec">componentSpec</a>(
+        'state,
+        'initialState,
+        'retainedProps,
+        'initialRetainedProps,
+        'action
+    ),
+    <a href="#type-jsPropsToReason">jsPropsToReason</a>('a, 'a, 'a, 'a)
+) => <a href="#type-reactClass">reactClass</a></h4>
+
+<div class='body body-empty'><span class='missing'>No documentation for this value</span></div></div>
+
+<div class='doc-item'><h4 class='item'>let <a href="#value-createDomElement" id="value-createDomElement">createDomElement</a> = (
+    string,
+    ~props: Js.t(&lt; .. &gt;),
+    array(<a href="#type-reactElement">reactElement</a>)
+) => <a href="#type-reactElement">reactElement</a></h4>
+
+<div class='body body-empty'><span class='missing'>No documentation for this value</span></div></div>
+
+<div class='doc-item'><h4 class='item'>let <a href="#value-wrapJsForReason" id="value-wrapJsForReason">wrapJsForReason</a> = (
+    ~reactClass: <a href="#type-reactClass">reactClass</a>,
+    ~props: Js.t(&lt; .. &gt;),
+    'a
+) => <a href="#type-component">component</a>(<a href="#type-stateless">stateless</a>, <a href="#type-noRetainedProps">noRetainedProps</a>, <a href="#type-actionless">actionless</a>)</h4>
+
+<div class='body '><ul><li>Wrap props into a JS component
+Use for interop when Reason components use JS components</li></ul></div></div>
+
+<div class='doc-item'><h4 class='item module'>module <a href="#module-Router" id="module-Router">Router</a></h4><div class='body module-body'><p><span class='missing'>This module does not have a toplevel documentation block.</span></p>
+<div class='doc-item'><h4 class='item'>let <a href="#value-Router.push" id="value-Router.push">push</a> = (string) => unit</h4>
+
+<div class='body '><p> update the url with the string path. Example: <code>push(&quot;/book/1&quot;)</code>, <code>push(&quot;/books#title&quot;)</code></p>
+</div></div>
+
+<div class='doc-item'><h4 class='item'>type <a href="#type-Router.watcherID" id="type-Router.watcherID">watcherID</a></h4>
+
+<div class='body body-empty'><span class='missing'>No documentation for this type</span></div></div>
+
+<div class='doc-item'><h4 class='item'>type <a href="#type-Router.url" id="type-Router.url">url</a> = {
+    path: list(string),
+    hash: string,
+    search: string
+}</h4>
+
+<div class='body body-empty'><span class='missing'>No documentation for this type</span></div></div>
+
+<div class='doc-item'><h4 class='item'>let <a href="#value-Router.watchUrl" id="value-Router.watchUrl">watchUrl</a> = ((<a href="#type-Router.url">url</a>) => unit) => <a href="#type-Router.watcherID">watcherID</a></h4>
+
+<div class='body '><p> start watching for URL changes. Returns a subscription token. Upon url change, calls the callback and passes it the url record</p>
+</div></div>
+
+<div class='doc-item'><h4 class='item'>let <a href="#value-Router.unwatchUrl" id="value-Router.unwatchUrl">unwatchUrl</a> = (<a href="#type-Router.watcherID">watcherID</a>) => unit</h4>
+
+<div class='body '><p> stop watching for URL changes</p>
+</div></div>
+
+<div class='doc-item'><h4 class='item'>let <a href="#value-Router.dangerouslyGetInitialUrl" id="value-Router.dangerouslyGetInitialUrl">dangerouslyGetInitialUrl</a> = (unit) => <a href="#type-Router.url">url</a></h4>
+
+<div class='body '><p> this is marked as &quot;dangerous&quot; because you technically shouldn&#39;t be accessing the URL outside of watchUrl&#39;s callback;</p>
+<pre><code>  you&#39;d read a potentially stale url, instead of the fresh one inside watchUrl.
+
+  But this helper is sometimes needed, if you&#39;d like to initialize a page whose display/state depends on the URL,
+  instead of reading from it in watchUrl&#39;s callback, which you&#39;d probably have put inside didMount (aka too late,
+  the page&#39;s already rendered).
+
+  So, the correct (and idiomatic) usage of this helper is to only use it in a component that&#39;s also subscribed to
+  watchUrl. Please see https://github.com/reasonml-community/reason-react-example/blob/master/src/todomvc/TodoItem.re
+  for an example.
+  </code></pre></div></div>
+</div></div>
+
+    </div>
+    <div class='right-blank'></div>
+    </div>
+  
