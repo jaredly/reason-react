@@ -1,0 +1,199 @@
+
+    
+<!doctype html>
+<meta charset=utf8>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel=stylesheet href='./styles.css'>
+<script defer src='./script.js'></script>
+<title>Creation</title>
+<body>
+<script>window.relativeToRoot="."</script>
+<div id='error-message'>
+  ⚠️ Oops! This page doesn't appear to define a <span>type</span> called <code>_</code>.
+</div>
+
+    
+    <div class='container'>
+    
+    <div class='sidebar-wrapper'>
+    <div class='sidebar-expander'>Show navigation</div>
+    <div class='sidebar'>
+      <a href="./search.html" style="display: block; padding: 0 8px;">Search</a>
+      <div class='docs-listing'><a href="./index.html">Home</a>
+<a href="./Creation.html">Creation</a></div>
+      <div class='table-of-contents'>
+      <div class='toc-header'>Page Contents</div>
+      <a href="#title--creation--props--amp--self" class='level-2 header'>title: Creation, Props &amp; Self</a>
+<a href="#props" class='level-2 header'>Props</a>
+<a href="#neat-trick-with-props-forwarding" class='level-3 header'>Neat Trick with Props Forwarding</a>
+<a href="#self" class='level-2 header'><code>self</code></a>
+      </div>
+      <div class='project-listing'><div class='project-title'>Package modules</div><a href="./api/ReactDOMRe.html">ReactDOMRe</a>
+<a href="./api/ReactDOMServerRe.html">ReactDOMServerRe</a>
+<a href="./api/ReactEventRe.html">ReactEventRe</a>
+<a href="./api/ReasonReact.html">ReasonReact</a>
+<a href="./api/ReasonReactOptimizedCreateClass.html">ReasonReactOptimizedCreateClass</a></div>
+    </div>
+    </div>
+  
+    <div class='main'>
+    <a href="https://github.com/jaredly/reason-react/blob/master/docs/./Creation.md" class="edit-link">Edit</a>
+    <p><hr/></p>
+<a href="#title--creation--props--amp--self" id="title--creation--props--amp--self"><h2>title: Creation, Props &amp; Self</h2></a>
+
+<p><em>The documentation assumes relative familiarity with ReactJS.</em></p>
+<p>ReasonReact doesn&#39;t use/need classes. The component creation API gives you a plain record, whose fields (like <code>render</code>) you can override.</p>
+<p>The component template is created through <code>ReasonReact.statelessComponent(&quot;TheComponentName&quot;)</code>. The string being passed is for debugging purposes (the equivalent of ReactJS&#39; <a href="https://reactjs.org/docs/react-component.html#displayname" target="_blank" rel="noopener nofollow" title="" class="external-link"><code>displayName</code></a>).</p>
+<p>As an example, here&#39;s the file <code>Greeting.re</code>:</p>
+<pre class='code'><code>let <span class='pattern-ident' data-type="ReasonReact.componentSpec(
+    ReasonReact.stateless,
+    ReasonReact.stateless,
+    ReasonReact.noRetainedProps,
+    ReasonReact.noRetainedProps,
+    ReasonReact.actionless
+)">component</span> = <span class='ident' data-type="string => ReasonReact.componentSpec(
+    ReasonReact.stateless,
+    ReasonReact.stateless,
+    ReasonReact.noRetainedProps,
+    ReasonReact.noRetainedProps,
+    ReasonReact.actionless
+)">ReasonReact.statelessComponent</span>(<span class='string' data-type="string">&quot;Greeting&quot;</span>);</code></pre>
+
+<p><strong>In ReactJS</strong>, you&#39;d create a component class and call it through JSX which transforms into <code>React.createElement(myClass, {prop1: &#39;hello&#39;})</code> under the hood. <strong>In ReasonReact</strong>, instead of passing the whole &quot;class&quot; (aka component template) into a hypothetical <code>ReasonReact.createElement</code> function, you&#39;d instead declare a <code>make</code> function:</p>
+<pre class='code'><code>/* still in Greeting.re */
+let <span class='pattern-ident' data-type="ReasonReact.componentSpec(
+    ReasonReact.stateless,
+    ReasonReact.stateless,
+    ReasonReact.noRetainedProps,
+    ReasonReact.noRetainedProps,
+    ReasonReact.actionless
+)">component</span> = <span class='ident' data-type="string => ReasonReact.componentSpec(
+    ReasonReact.stateless,
+    ReasonReact.stateless,
+    ReasonReact.noRetainedProps,
+    ReasonReact.noRetainedProps,
+    ReasonReact.actionless
+)">ReasonReact.statelessComponent</span>(<span class='string' data-type="string">&quot;Greeting&quot;</span>);
+
+let <span class='pattern-ident' data-type="(~name: string, 'a) => ReasonReact.componentSpec(
+    ReasonReact.stateless,
+    ReasonReact.stateless,
+    ReasonReact.noRetainedProps,
+    ReasonReact.noRetainedProps,
+    ReasonReact.actionless
+)">make</span> = (~<span class='pattern-ident' data-type="string">name</span>, <span class='pattern-ident' data-type="'a">_children</span>) =&gt; <span data-type="ReasonReact.componentSpec(
+    ReasonReact.stateless,
+    ReasonReact.stateless,
+    ReasonReact.noRetainedProps,
+    ReasonReact.noRetainedProps,
+    ReasonReact.actionless
+)">{
+  ...<span class='ident' data-type="ReasonReact.componentSpec(
+    ReasonReact.stateless,
+    ReasonReact.stateless,
+    ReasonReact.noRetainedProps,
+    ReasonReact.noRetainedProps,
+    ReasonReact.actionless
+)">component</span>, /* spread the template&#39;s other defaults into here  */
+  render: <span class='pattern-ident' data-type="ReasonReact.self(
+    ReasonReact.stateless,
+    ReasonReact.noRetainedProps,
+    ReasonReact.actionless
+)">_self</span> =&gt; <span class='ident' data-type="(
+    string,
+    ~?props: option(ReactDOMRe.reactDOMProps),
+    array(
+        ReasonReact.reactElement
+    )
+) => ReasonReact.reactElement">&lt;div&gt; {<span class='ident' data-type="string => ReasonReact.reactElement">ReasonReact.stringToElement</span>(<span class='ident' data-type="string">name</span>)} &lt;/div&gt;</span>
+}</span>;</code></pre>
+
+<p>The <code>make</code> function is what&#39;s called by ReasonReact&#39;s JSX, described later. For now, the JSX-less way of calling &amp; rendering a component is:</p>
+<pre class='code'><code><span class='ident' data-type="(
+    ~?key: option(string),
+    ~?ref: option(
+        Js.nullable(ReasonReact.reactRef) => unit
+    ),
+    ReasonReact.component(
+        'a,
+        'a,
+        'a
+    )
+) => ReasonReact.reactElement">ReasonReact.element</span>(Greeting.make(~name=&quot;John&quot;, [||])) /* the `make` function in the module `Greeting` */
+/* equivalent to &lt;Greeting name=&quot;John&quot; /&gt; */<div style='color: red'>Compilation failed!!</div></code></pre>
+
+<p><code>make</code> asks you to return the component record created above. You&#39;d override a few fields, such as the familiar <code>render</code>, <code>initialState</code>, <code>didMount</code>, etc., all described later.</p>
+<p><strong>Note</strong>: do <strong>not</strong> inline <code>let component</code> into the <code>make</code> function body like the following!</p>
+<pre class='code'><code>let <span class='pattern-ident' data-type="'a => 'a">make</span> = <span class='pattern-ident' data-type="'a">_children</span> =&gt; {
+  ...(<span class='ident' data-type="string => ReasonReact.componentSpec(
+    ReasonReact.stateless,
+    ReasonReact.stateless,
+    ReasonReact.noRetainedProps,
+    ReasonReact.noRetainedProps,
+    ReasonReact.actionless
+)">ReasonReact.statelessComponent</span>(<span class='string' data-type="string">&quot;Greeting&quot;</span>)),
+  render: <span class='pattern-ident' data-type="ReasonReact.self('a, 'a, 'a)">self</span> =&gt; blabla
+}<div style='color: red'>Compilation failed!!</div></code></pre>
+
+<p>Since <code>make</code> is called at every JSX invocation, you&#39;d be accidentally creating a fresh new component every time.</p>
+<a href="#props" id="props"><h2>Props</h2></a>
+
+<p>Props are just the labeled arguments of the <code>make</code> function, seen above. They can also be optional and/or have defaults, e.g. <code>let make = (~name, ~age=?, ~className=&quot;box&quot;, _children) =&gt; ...</code>.</p>
+<p>The last prop <strong>must</strong> be <code>children</code>. If you don&#39;t use it, simply ignore it by naming it <code>_</code> or <code>_children</code>. Names starting with underscore don&#39;t trigger compiler warnings if they&#39;re unused.</p>
+<p><strong>The prop name cannot be <code>ref</code> nor <code>key</code></strong>. Those are reserved, just like in ReactJS.</p>
+<p>Following that example, you&#39;d call that component in another file through <code>&lt;Foo name=&quot;Reason&quot; /&gt;</code>. <code>className</code>, if omitted, defaults to &quot;box&quot;. <code>age</code> defaults to <code>None</code>. If you&#39;d like to explicitly pass <code>age</code>, simply do so: <code>&lt;Foo name=&quot;Reason&quot; age=20 /&gt;</code>.</p>
+<a href="#neat-trick-with-props-forwarding" id="neat-trick-with-props-forwarding"><h3>Neat Trick with Props Forwarding</h3></a>
+
+<pre class='code'><code>let module Foo = {
+  let <span class='pattern-ident' data-type="'a">component</span> = ReasonReact.createComponent(&quot;Foo&quot;);
+  let make = (~name, ~age, children) =&gt; {
+    ...component,
+    render: (_) =&gt; ReasonReact.stringToElement(name)
+  }
+};<div style='color: red'>Compilation failed!!</div></code></pre>
+
+<p>Sometimes in ReactJS, you&#39;re being given a prop from the owner that you&#39;d like to forward directly to the child:</p>
+<pre class='js'><code class='js'>&lt;Foo name=&quot;Reason&quot; age={this.props.age} /&gt;</code></pre>
+
+<p>This is a source of bugs, because <code>this.props.age</code> might be accidentally changed to a nullable number while <code>Foo</code> doesn&#39;t expect it to be so, or vice-versa; it might be nullable before, and now it&#39;s not and <code>Foo</code> is left with a useless null check somewhere in the render.</p>
+<p>In Reason, if you want to explicitly pass an optional <code>ageFromProps</code> (whose type is <code>option int</code>, aka <code>None | Some int</code>), the following wouldn&#39;t work:</p>
+<pre class='code'><code><span class='ident' data-type="(
+    ~?key: option(string),
+    ~?ref: option(
+        Js.nullable(ReasonReact.reactRef) => unit
+    ),
+    ReasonReact.component(
+        'a,
+        'a,
+        'a
+    )
+) => ReasonReact.reactElement">&lt;Foo name=&quot;Reason&quot; age=ageFromProps /&gt;</span><div style='color: red'>Compilation failed!!</div></code></pre>
+
+<p>Because <code>age</code> expects a normal <code>int</code> when you do call <code>Foo</code> with it, not an <code>option int</code>! Naively, you&#39;d be forced to solve this like so:</p>
+<pre class='code'><code>switch (ageFromProps) {
+| None =&gt; &lt;Foo name=&quot;Reason&quot; /&gt;
+| Some(nonNullableAge) =&gt; &lt;Foo name=&quot;Reason&quot; age=nonNullableAge /&gt;
+}<div style='color: red'>Compilation failed!!</div></code></pre>
+
+<p>Cumbersome. Fortunately, here&#39;s a better way to explicitly pass an optional value:</p>
+<pre class='code'><code><span class='ident' data-type="(
+    ~?key: option(string),
+    ~?ref: option(
+        Js.nullable(ReasonReact.reactRef) => unit
+    ),
+    ReasonReact.component(
+        'a,
+        'a,
+        'a
+    )
+) => ReasonReact.reactElement">&lt;Foo name=&quot;Reason&quot; age=?ageFromProps /&gt;</span><div style='color: red'>Compilation failed!!</div></code></pre>
+
+<p>It says &quot;I understand that <code>age</code> is optional and that when I use the label I should pass an int. But I&#39;d like to forward an <code>option</code> value explicitly&quot;. This isn&#39;t a JSX trick we&#39;ve made up; it&#39;s just a language feature! See the section on &quot;Explicitly Passed Optional&quot; in the <a href="https://reasonml.github.io/docs/en/function.html#explicitly-passed-optional" target="_blank" rel="noopener nofollow" title="" class="external-link">Reason docs</a>.</p>
+<a href="#self" id="self"><h2><code>self</code></h2></a>
+
+<p>You might have seen the <code>render: (self) =&gt; ...</code> part in <code>make</code>. The concept of JavaScript <code>this</code> doesn&#39;t exist in ReasonReact (but can exist in Reason, since it has an optional object system); the <code>this</code> equivalent is called <code>self</code>. It&#39;s a record that contains <code>state</code>, <code>retainedProps</code>, <code>handle</code> and <code>reduce</code>, which we pass around to the lifecycle events, <code>render</code> and a few others, when they need the bag of information. These concepts will be explained later on.</p>
+
+    </div>
+    <div class='right-blank'></div>
+    </div>
+  
