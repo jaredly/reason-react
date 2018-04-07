@@ -1,6 +1,4 @@
----
-title: Creation, Props & Self
----
+# Creation, Props & Self
 
 _The documentation assumes relative familiarity with ReactJS._
 
