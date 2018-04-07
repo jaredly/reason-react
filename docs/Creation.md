@@ -28,8 +28,20 @@ let make = (~name, _children) => {
 
 The `make` function is what's called by ReasonReact's JSX, described later. For now, the JSX-less way of calling & rendering a component is:
 
-```reason
-ReasonReact.element(Greeting.make(~name="John", [||])) /* the `make` function in the module `Greeting` */
+```reason;shared(Greeting);hide
+let module Greeting = {
+  let component = ReasonReact.statelessComponent("Greeting");
+
+  let make = (~name, _children) => {
+    ...component, /* spread the template's other defaults into here  */
+    render: _self => <div> {ReasonReact.stringToElement(name)} </div>
+  };
+};
+```
+
+```reason;use(Greeting)
+/* call the `make` function in the module `Greeting` */
+ReasonReact.element(Greeting.make(~name="John", [||]))
 /* equivalent to <Greeting name="John" /> */
 ```
 
@@ -38,9 +50,10 @@ ReasonReact.element(Greeting.make(~name="John", [||])) /* the `make` function in
 **Note**: do **not** inline `let component` into the `make` function body like the following!
 
 ```reason
+# open ReasonReact;
 let make = _children => {
   ...(ReasonReact.statelessComponent("Greeting")),
-  render: self => blabla
+  render: self => <div />
 }
 ```
 
@@ -58,12 +71,12 @@ Following that example, you'd call that component in another file through `<Foo 
 
 ### Neat Trick with Props Forwarding
 
-```reason;shared(Foo)
+```reason;shared(Foo);hide
 let module Foo = {
-  let component = ReasonReact.createComponent("Foo");
-  let make = (~name, ~age, children) => {
+  let component = ReasonReact.statelessComponent("Foo");
+  let make = (~name, ~age=?, children: array(ReasonReact.reactElement)) => {
     ...component,
-    render: (_) => ReasonReact.stringToElement(name)
+    render: (_) => ReasonReact.stringToElement(name ++ (switch age { | None => "" | Some(age) => " is " ++ string_of_int(age)}))
   }
 };
 ```
@@ -78,15 +91,15 @@ This is a source of bugs, because `this.props.age` might be accidentally changed
 
 In Reason, if you want to explicitly pass an optional `ageFromProps` (whose type is `option int`, aka `None | Some int`), the following wouldn't work:
 
-```reason;use(Foo)
-# let ageFromProps = 10;
-# let _ =
-<Foo name="Reason" age=ageFromProps />
+```reason;use(Foo);type-fail
+let ageFromProps = Some(10);
+let _ = <Foo name="Reason" age=ageFromProps />
 ```
 
 Because `age` expects a normal `int` when you do call `Foo` with it, not an `option int`! Naively, you'd be forced to solve this like so:
 
-```reason
+```reason;use(Foo)
+let ageFromProps = Some(10);
 switch (ageFromProps) {
 | None => <Foo name="Reason" />
 | Some(nonNullableAge) => <Foo name="Reason" age=nonNullableAge />
@@ -95,9 +108,9 @@ switch (ageFromProps) {
 
 Cumbersome. Fortunately, here's a better way to explicitly pass an optional value:
 
-```reason
-# let _ =
-<Foo name="Reason" age=?ageFromProps />
+```reason;use(Foo)
+let ageFromProps = Some(10);
+let _ = <Foo name="Reason" age=?ageFromProps />
 ```
 
 It says "I understand that `age` is optional and that when I use the label I should pass an int. But I'd like to forward an `option` value explicitly". This isn't a JSX trick we've made up; it's just a language feature! See the section on "Explicitly Passed Optional" in the [Reason docs](https://reasonml.github.io/docs/en/function.html#explicitly-passed-optional).

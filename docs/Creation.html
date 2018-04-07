@@ -109,22 +109,41 @@ let <span class='pattern-ident' data-type="(~name: string, 'a) => ReasonReact.co
 }</span>;</code></pre>
 
 <p>The <code>make</code> function is what&#39;s called by ReasonReact&#39;s JSX, described later. For now, the JSX-less way of calling &amp; rendering a component is:</p>
-<pre class='code'><code><span class='ident' data-type="(
+
+
+<pre class='code'><code>/* call the `make` function in the module `Greeting` */
+<span class='ident' data-type="(
     ~?key: option(string),
     ~?ref: option(
         Js.nullable(ReasonReact.reactRef) => unit
     ),
     ReasonReact.component(
-        'a,
-        'a,
-        'a
+        ReasonReact.stateless,
+        ReasonReact.noRetainedProps,
+        ReasonReact.actionless
     )
-) => ReasonReact.reactElement">ReasonReact.element</span>(Greeting.make(~name=&quot;John&quot;, [||])) /* the `make` function in the module `Greeting` */
-/* equivalent to &lt;Greeting name=&quot;John&quot; /&gt; */<div style='color: red'>Compilation failed!!</div></code></pre>
+) => ReasonReact.reactElement">ReasonReact.element</span>(<span class='ident' data-type="(~name: string, array('a)) => ReasonReact.component(
+    ReasonReact.stateless,
+    ReasonReact.noRetainedProps,
+    ReasonReact.actionless
+)">Greeting.make</span>(~name=<span class='string' data-type="string">&quot;John&quot;</span>, [||]))
+/* equivalent to &lt;Greeting name=&quot;John&quot; /&gt; */</code></pre>
 
 <p><code>make</code> asks you to return the component record created above. You&#39;d override a few fields, such as the familiar <code>render</code>, <code>initialState</code>, <code>didMount</code>, etc., all described later.</p>
 <p><strong>Note</strong>: do <strong>not</strong> inline <code>let component</code> into the <code>make</code> function body like the following!</p>
-<pre class='code'><code>let <span class='pattern-ident' data-type="'a => 'a">make</span> = <span class='pattern-ident' data-type="'a">_children</span> =&gt; {
+<pre class='code'><code>let <span class='pattern-ident' data-type="'a => ReasonReact.componentSpec(
+    ReasonReact.stateless,
+    ReasonReact.stateless,
+    ReasonReact.noRetainedProps,
+    ReasonReact.noRetainedProps,
+    ReasonReact.actionless
+)">make</span> = <span class='pattern-ident' data-type="'a">_children</span> =&gt; <span data-type="ReasonReact.componentSpec(
+    ReasonReact.stateless,
+    ReasonReact.stateless,
+    ReasonReact.noRetainedProps,
+    ReasonReact.noRetainedProps,
+    ReasonReact.actionless
+)">{
   ...(<span class='ident' data-type="string => ReasonReact.componentSpec(
     ReasonReact.stateless,
     ReasonReact.stateless,
@@ -132,8 +151,18 @@ let <span class='pattern-ident' data-type="(~name: string, 'a) => ReasonReact.co
     ReasonReact.noRetainedProps,
     ReasonReact.actionless
 )">ReasonReact.statelessComponent</span>(<span class='string' data-type="string">&quot;Greeting&quot;</span>)),
-  render: <span class='pattern-ident' data-type="ReasonReact.self('a, 'a, 'a)">self</span> =&gt; blabla
-}<div style='color: red'>Compilation failed!!</div></code></pre>
+  render: <span class='pattern-ident' data-type="ReasonReact.self(
+    ReasonReact.stateless,
+    ReasonReact.noRetainedProps,
+    ReasonReact.actionless
+)">self</span> =&gt; <span class='ident' data-type="(
+    string,
+    ~?props: option(ReactDOMRe.reactDOMProps),
+    array(
+        ReasonReact.reactElement
+    )
+) => ReasonReact.reactElement">&lt;div /&gt;</span>
+}</span></code></pre>
 
 <p>Since <code>make</code> is called at every JSX invocation, you&#39;d be accidentally creating a fresh new component every time.</p>
 <a href="#props" id="props"><h2>Props</h2></a>
@@ -144,20 +173,27 @@ let <span class='pattern-ident' data-type="(~name: string, 'a) => ReasonReact.co
 <p>Following that example, you&#39;d call that component in another file through <code>&lt;Foo name=&quot;Reason&quot; /&gt;</code>. <code>className</code>, if omitted, defaults to &quot;box&quot;. <code>age</code> defaults to <code>None</code>. If you&#39;d like to explicitly pass <code>age</code>, simply do so: <code>&lt;Foo name=&quot;Reason&quot; age=20 /&gt;</code>.</p>
 <a href="#neat-trick-with-props-forwarding" id="neat-trick-with-props-forwarding"><h3>Neat Trick with Props Forwarding</h3></a>
 
-<pre class='code'><code>let module Foo = {
-  let <span class='pattern-ident' data-type="'a">component</span> = ReasonReact.createComponent(&quot;Foo&quot;);
-  let make = (~name, ~age, children) =&gt; {
-    ...component,
-    render: (_) =&gt; ReasonReact.stringToElement(name)
-  }
-};<div style='color: red'>Compilation failed!!</div></code></pre>
+
 
 <p>Sometimes in ReactJS, you&#39;re being given a prop from the owner that you&#39;d like to forward directly to the child:</p>
 <pre class='js'><code class='js'>&lt;Foo name=&quot;Reason&quot; age={this.props.age} /&gt;</code></pre>
 
 <p>This is a source of bugs, because <code>this.props.age</code> might be accidentally changed to a nullable number while <code>Foo</code> doesn&#39;t expect it to be so, or vice-versa; it might be nullable before, and now it&#39;s not and <code>Foo</code> is left with a useless null check somewhere in the render.</p>
 <p>In Reason, if you want to explicitly pass an optional <code>ageFromProps</code> (whose type is <code>option int</code>, aka <code>None | Some int</code>), the following wouldn&#39;t work:</p>
-<pre class='code'><code><span class='ident' data-type="(
+<pre class='code'><code>let <span class='pattern-ident' data-type="option(int)">ageFromProps</span> = <span class='constructor' data-type="option(int)">Some</span>(<span class='int' data-type="int">10</span>);
+let _ = <span class='ident' data-type="(
+    ~name: string,
+    ~?age: option(int),
+    array(
+        ReasonReact.reactElement
+    )
+) => ReasonReact.componentSpec(
+    ReasonReact.stateless,
+    ReasonReact.stateless,
+    ReasonReact.noRetainedProps,
+    ReasonReact.noRetainedProps,
+    ReasonReact.actionless
+)"><span class='ident' data-type="(
     ~?key: option(string),
     ~?ref: option(
         Js.nullable(ReasonReact.reactRef) => unit
@@ -167,26 +203,81 @@ let <span class='pattern-ident' data-type="(~name: string, 'a) => ReasonReact.co
         'a,
         'a
     )
-) => ReasonReact.reactElement">&lt;Foo name=&quot;Reason&quot; age=ageFromProps /&gt;</span><div style='color: red'>Compilation failed!!</div></code></pre>
+) => ReasonReact.reactElement">&lt;Foo name=<span class='string' data-type="string">&quot;Reason&quot;</span> age=<span class='ident' data-type="option(int)">ageFromProps</span> /&gt;</span></span></code></pre><div class='compile-error'>Compile error:
+File &quot;&quot;, line 9, characters 31-43:
+Error: This expression has type int option
+       but an expression was expected of type int</div>
 
 <p>Because <code>age</code> expects a normal <code>int</code> when you do call <code>Foo</code> with it, not an <code>option int</code>! Naively, you&#39;d be forced to solve this like so:</p>
-<pre class='code'><code>switch (ageFromProps) {
-| None =&gt; &lt;Foo name=&quot;Reason&quot; /&gt;
-| Some(nonNullableAge) =&gt; &lt;Foo name=&quot;Reason&quot; age=nonNullableAge /&gt;
-}<div style='color: red'>Compilation failed!!</div></code></pre>
-
-<p>Cumbersome. Fortunately, here&#39;s a better way to explicitly pass an optional value:</p>
-<pre class='code'><code><span class='ident' data-type="(
+<pre class='code'><code>let <span class='pattern-ident' data-type="option(int)">ageFromProps</span> = <span class='constructor' data-type="option(int)">Some</span>(<span class='int' data-type="int">10</span>);
+switch (<span class='ident' data-type="option(int)">ageFromProps</span>) {
+| <span class='pattern-constructor' data-type="option(int)">None</span> =&gt; <span class='ident' data-type="(
     ~?key: option(string),
     ~?ref: option(
         Js.nullable(ReasonReact.reactRef) => unit
     ),
     ReasonReact.component(
-        'a,
-        'a,
-        'a
+        ReasonReact.stateless,
+        ReasonReact.noRetainedProps,
+        ReasonReact.actionless
     )
-) => ReasonReact.reactElement">&lt;Foo name=&quot;Reason&quot; age=?ageFromProps /&gt;</span><div style='color: red'>Compilation failed!!</div></code></pre>
+) => ReasonReact.reactElement"><span class='ident' data-type="(
+    ~name: string,
+    ~?age: option(int),
+    array(
+        ReasonReact.reactElement
+    )
+) => ReasonReact.component(
+    ReasonReact.stateless,
+    ReasonReact.noRetainedProps,
+    ReasonReact.actionless
+)">&lt;Foo name=<span class='string' data-type="string">&quot;Reason&quot;</span> /&gt;</span></span>
+| <span class='pattern-constructor' data-type="option(int)">Some</span>(<span class='pattern-ident' data-type="int">nonNullableAge</span>) =&gt; <span class='ident' data-type="(
+    ~?key: option(string),
+    ~?ref: option(
+        Js.nullable(ReasonReact.reactRef) => unit
+    ),
+    ReasonReact.component(
+        ReasonReact.stateless,
+        ReasonReact.noRetainedProps,
+        ReasonReact.actionless
+    )
+) => ReasonReact.reactElement"><span class='ident' data-type="(
+    ~name: string,
+    ~?age: option(int),
+    array(
+        ReasonReact.reactElement
+    )
+) => ReasonReact.component(
+    ReasonReact.stateless,
+    ReasonReact.noRetainedProps,
+    ReasonReact.actionless
+)">&lt;Foo name=<span class='string' data-type="string">&quot;Reason&quot;</span> age=<span class='ident' data-type="int">nonNullableAge</span> /&gt;</span></span>
+}</code></pre>
+
+<p>Cumbersome. Fortunately, here&#39;s a better way to explicitly pass an optional value:</p>
+<pre class='code'><code>let <span class='pattern-ident' data-type="option(int)">ageFromProps</span> = <span class='constructor' data-type="option(int)">Some</span>(<span class='int' data-type="int">10</span>);
+let _ = <span class='ident' data-type="(
+    ~?key: option(string),
+    ~?ref: option(
+        Js.nullable(ReasonReact.reactRef) => unit
+    ),
+    ReasonReact.component(
+        ReasonReact.stateless,
+        ReasonReact.noRetainedProps,
+        ReasonReact.actionless
+    )
+) => ReasonReact.reactElement"><span class='ident' data-type="(
+    ~name: string,
+    ~?age: option(int),
+    array(
+        ReasonReact.reactElement
+    )
+) => ReasonReact.component(
+    ReasonReact.stateless,
+    ReasonReact.noRetainedProps,
+    ReasonReact.actionless
+)">&lt;Foo name=<span class='string' data-type="string">&quot;Reason&quot;</span> age=?<span class='ident' data-type="option(int)">ageFromProps</span> /&gt;</span></span></code></pre>
 
 <p>It says &quot;I understand that <code>age</code> is optional and that when I use the label I should pass an int. But I&#39;d like to forward an <code>option</code> value explicitly&quot;. This isn&#39;t a JSX trick we&#39;ve made up; it&#39;s just a language feature! See the section on &quot;Explicitly Passed Optional&quot; in the <a href="https://reasonml.github.io/docs/en/function.html#explicitly-passed-optional" target="_blank" rel="noopener nofollow" title="" class="external-link">Reason docs</a>.</p>
 <a href="#self" id="self"><h2><code>self</code></h2></a>
