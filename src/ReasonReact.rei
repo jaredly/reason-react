@@ -66,7 +66,7 @@ type reactRef;
  *
  * In Reason's JSX, text is not automatically wrapped, you have to do it manually:
  *
- * ```
+ * ```reason;skip
  * <div>
  *  (ReasonReact.stringToElement("Hello folks"))
  * </div>
@@ -334,15 +334,15 @@ module Router: {
   /** stop watching for URL changes */
   let unwatchUrl: watcherID => unit;
   /** this is marked as "dangerous" because you technically shouldn't be accessing the URL outside of watchUrl's callback;
-      you'd read a potentially stale url, instead of the fresh one inside watchUrl.
-
-      But this helper is sometimes needed, if you'd like to initialize a page whose display/state depends on the URL,
-      instead of reading from it in watchUrl's callback, which you'd probably have put inside didMount (aka too late,
-      the page's already rendered).
-
-      So, the correct (and idiomatic) usage of this helper is to only use it in a component that's also subscribed to
-      watchUrl. Please see https://github.com/reasonml-community/reason-react-example/blob/master/src/todomvc/TodoItem.re
-      for an example.
-      */
+    * you'd read a potentially stale url, instead of the fresh one inside watchUrl.
+    *
+    * But this helper is sometimes needed, if you'd like to initialize a page whose display/state depends on the URL,
+    * instead of reading from it in watchUrl's callback, which you'd probably have put inside didMount (aka too late,
+    * the page's already rendered).
+    *
+    * So, the correct (and idiomatic) usage of this helper is to only use it in a component that's also subscribed to
+    * watchUrl. Please see https://github.com/reasonml-community/reason-react-example/blob/master/src/todomvc/TodoItem.re
+    * for an example.
+    */
   let dangerouslyGetInitialUrl: unit => url;
 };

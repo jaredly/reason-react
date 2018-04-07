@@ -58,6 +58,19 @@
 <a href="#type-subscription" class='level-3 type'>subscription</a>
 <a href="#type-oldNewSelf" class='level-3 type'>oldNewSelf</a>
 <a href="#type-componentSpec" class='level-3 type'>componentSpec</a>
+<a href="#type-reactClass" class='level-3 type'>reactClass</a>
+<a href="#type-reactElement" class='level-3 type'>reactElement</a>
+<a href="#type-reactRef" class='level-3 type'>reactRef</a>
+<a href="#value-createElement" class='level-3 value'>createElement</a>
+<a href="#value-cloneElement" class='level-3 value'>cloneElement</a>
+<a href="#type-renderNotImplemented" class='level-3 type'>renderNotImplemented</a>
+<a href="#type-stateless" class='level-3 type'>stateless</a>
+<a href="#type-noRetainedProps" class='level-3 type'>noRetainedProps</a>
+<a href="#type-actionless" class='level-3 type'>actionless</a>
+<a href="#type-reactClassInternal" class='level-3 type'>reactClassInternal</a>
+<a href="#type-jsElementWrapped" class='level-3 type'>jsElementWrapped</a>
+<a href="#type-component" class='level-3 type'>component</a>
+<a href="#value-element" class='level-3 value'>element</a>
       </div>
       <div class='project-listing'><div class='project-title'>Package modules</div><a href="ReactDOMRe.html">ReactDOMRe</a>
 <a href="ReactDOMServerRe.html">ReactDOMServerRe</a>
@@ -74,24 +87,24 @@
 <p>This is the main exposted API.</p>
 <a href="#Element-creators" id="Element-creators"><h2>Element creators</h2></a>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-stringToElement" id="value-stringToElement">stringToElement</a> = (string) => <a href="#type-reactElement">reactElement</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-stringToElement" id="value-stringToElement">stringToElement</a> = string => <a href="#type-reactElement">reactElement</a></h4>
 
-<div class='body '><p> Use this for creating an element that&#39;s just text.</p>
+<div class='body '><p>Use this for creating an element that&#39;s just text.</p>
 <p>In Reason&#39;s JSX, text is not automatically wrapped, you have to do it manually:</p>
-<pre><code>&lt;div&gt;
+<pre class='reason;skip'><code class='reason;skip'>&lt;div&gt;
  (ReasonReact.stringToElement(&quot;Hello folks&quot;))
 &lt;/div&gt;</code></pre></div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-arrayToElement" id="value-arrayToElement">arrayToElement</a> = (array(<a href="#type-reactElement">reactElement</a>)) => <a href="#type-reactElement">reactElement</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-arrayToElement" id="value-arrayToElement">arrayToElement</a> = array(<a href="#type-reactElement">reactElement</a>) => <a href="#type-reactElement">reactElement</a></h4>
 
 <div class='body '><p> Convert an array of keyed react elements to a react element.</p>
 </div></div>
 
 <div class='doc-item'><h4 class='item'>let <a href="#value-nullElement" id="value-nullElement">nullElement</a> = <a href="#type-reactElement">reactElement</a></h4>
 
-<div class='body body-empty'><span class='missing'>No documentation for this value</span></div></div><a href="#Component-constructors" id="Component-constructors"><h2>Component constructors</h2></a>
+<div class='body body-empty'></div></div><a href="#Component-constructors" id="Component-constructors"><h2>Component constructors</h2></a>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-statelessComponent" id="value-statelessComponent">statelessComponent</a> = (string) => <a href="#type-componentSpec">componentSpec</a>(
+<div class='doc-item'><h4 class='item'>let <a href="#value-statelessComponent" id="value-statelessComponent">statelessComponent</a> = string => <a href="#type-componentSpec">componentSpec</a>(
     <a href="#type-stateless">stateless</a>,
     <a href="#type-stateless">stateless</a>,
     <a href="#type-noRetainedProps">noRetainedProps</a>,
@@ -102,7 +115,7 @@
 <div class='body '><p> Create a stateless component: i.e. a component where state has type stateless.</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-reducerComponent" id="value-reducerComponent">reducerComponent</a> = (string) => <a href="#type-componentSpec">componentSpec</a>(
+<div class='doc-item'><h4 class='item'>let <a href="#value-reducerComponent" id="value-reducerComponent">reducerComponent</a> = string => <a href="#type-componentSpec">componentSpec</a>(
     'state,
     <a href="#type-stateless">stateless</a>,
     <a href="#type-noRetainedProps">noRetainedProps</a>,
@@ -110,11 +123,9 @@
     'action
 )</h4>
 
-<div class='body body-empty'><span class='missing'>No documentation for this value</span></div></div>
+<div class='body body-empty'></div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-statelessComponentWithRetainedProps" id="value-statelessComponentWithRetainedProps">statelessComponentWithRetainedProps</a> = (
-    string
-) => <a href="#type-componentSpec">componentSpec</a>(
+<div class='doc-item'><h4 class='item'>let <a href="#value-statelessComponentWithRetainedProps" id="value-statelessComponentWithRetainedProps">statelessComponentWithRetainedProps</a> = string => <a href="#type-componentSpec">componentSpec</a>(
     <a href="#type-stateless">stateless</a>,
     <a href="#type-stateless">stateless</a>,
     'retainedProps,
@@ -122,11 +133,9 @@
     <a href="#type-actionless">actionless</a>
 )</h4>
 
-<div class='body body-empty'><span class='missing'>No documentation for this value</span></div></div>
+<div class='body body-empty'></div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-reducerComponentWithRetainedProps" id="value-reducerComponentWithRetainedProps">reducerComponentWithRetainedProps</a> = (
-    string
-) => <a href="#type-componentSpec">componentSpec</a>(
+<div class='doc-item'><h4 class='item'>let <a href="#value-reducerComponentWithRetainedProps" id="value-reducerComponentWithRetainedProps">reducerComponentWithRetainedProps</a> = string => <a href="#type-componentSpec">componentSpec</a>(
     'state,
     <a href="#type-stateless">stateless</a>,
     'retainedProps,
@@ -134,7 +143,7 @@
     'action
 )</h4>
 
-<div class='body body-empty'><span class='missing'>No documentation for this value</span></div></div><a href="#JavaScript-Interop" id="JavaScript-Interop"><h2>JavaScript Interop</h2></a>
+<div class='body body-empty'></div></div><a href="#JavaScript-Interop" id="JavaScript-Interop"><h2>JavaScript Interop</h2></a>
 
 <div class='doc-item'><h4 class='item'>let <a href="#value-wrapReasonForJs" id="value-wrapReasonForJs">wrapReasonForJs</a> = (
     ~component: <a href="#type-componentSpec">componentSpec</a>(
@@ -168,35 +177,35 @@ Use for interop when Reason components use JS components</li></ul></div></div>
     array(<a href="#type-reactElement">reactElement</a>)
 ) => <a href="#type-reactElement">reactElement</a></h4>
 
-<div class='body body-empty'><span class='missing'>No documentation for this value</span></div></div>
+<div class='body body-empty'></div></div>
 
 <div class='doc-item'><h4 class='item'>type <a href="#type-jsPropsToReason" id="type-jsPropsToReason">jsPropsToReason</a>(
     'jsProps,
     'state,
     'retainedProps,
     'action
-) = (Js.t('jsProps)) => <a href="#type-component">component</a>(
+) = Js.t('jsProps) => <a href="#type-component">component</a>(
     'state,
     'retainedProps,
     'action
 )</h4>
 
-<div class='body body-empty'><span class='missing'>No documentation for this type</span></div></div>
+<div class='body body-empty'></div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-refToJsObj" id="value-refToJsObj">refToJsObj</a> = (<a href="#type-reactRef">reactRef</a>) => Js.t(&lt; .. &gt;)</h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-refToJsObj" id="value-refToJsObj">refToJsObj</a> = <a href="#type-reactRef">reactRef</a> => Js.t(&lt; .. &gt;)</h4>
 
 <div class='body '><p> <strong>Unsafe</strong> get an untyped javascript object representation of a react ref.</p>
 </div></div><a href="#The-Router" id="The-Router"><h2>The Router</h2></a>
 
 <div class='doc-item'><h4 class='item module'>module <a href="#module-Router" id="module-Router">Router</a></h4><div class='body module-body'><p><span class='missing'>This module does not have a toplevel documentation block.</span></p>
-<div class='doc-item'><h4 class='item'>let <a href="#value-Router.push" id="value-Router.push">push</a> = (string) => unit</h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-Router.push" id="value-Router.push">push</a> = string => unit</h4>
 
 <div class='body '><p> update the url with the string path. Example: <code>push(&quot;/book/1&quot;)</code>, <code>push(&quot;/books#title&quot;)</code></p>
 </div></div>
 
 <div class='doc-item'><h4 class='item'>type <a href="#type-Router.watcherID" id="type-Router.watcherID">watcherID</a></h4>
 
-<div class='body body-empty'><span class='missing'>No documentation for this type</span></div></div>
+<div class='body body-empty'></div></div>
 
 <div class='doc-item'><h4 class='item'>type <a href="#type-Router.url" id="type-Router.url">url</a> = {
     path: list(string),
@@ -204,41 +213,39 @@ Use for interop when Reason components use JS components</li></ul></div></div>
     search: string
 }</h4>
 
-<div class='body body-empty'><span class='missing'>No documentation for this type</span></div></div>
+<div class='body body-empty'></div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-Router.watchUrl" id="value-Router.watchUrl">watchUrl</a> = ((<a href="#type-Router.url">url</a>) => unit) => <a href="#type-Router.watcherID">watcherID</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-Router.watchUrl" id="value-Router.watchUrl">watchUrl</a> = <a href="#type-Router.url">url</a> => unit => <a href="#type-Router.watcherID">watcherID</a></h4>
 
 <div class='body '><p> start watching for URL changes. Returns a subscription token. Upon url change, calls the callback and passes it the url record</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-Router.unwatchUrl" id="value-Router.unwatchUrl">unwatchUrl</a> = (<a href="#type-Router.watcherID">watcherID</a>) => unit</h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-Router.unwatchUrl" id="value-Router.unwatchUrl">unwatchUrl</a> = <a href="#type-Router.watcherID">watcherID</a> => unit</h4>
 
 <div class='body '><p> stop watching for URL changes</p>
 </div></div>
 
-<div class='doc-item'><h4 class='item'>let <a href="#value-Router.dangerouslyGetInitialUrl" id="value-Router.dangerouslyGetInitialUrl">dangerouslyGetInitialUrl</a> = (unit) => <a href="#type-Router.url">url</a></h4>
+<div class='doc-item'><h4 class='item'>let <a href="#value-Router.dangerouslyGetInitialUrl" id="value-Router.dangerouslyGetInitialUrl">dangerouslyGetInitialUrl</a> = unit => <a href="#type-Router.url">url</a></h4>
 
-<div class='body '><p> this is marked as &quot;dangerous&quot; because you technically shouldn&#39;t be accessing the URL outside of watchUrl&#39;s callback;</p>
-<pre><code>  you&#39;d read a potentially stale url, instead of the fresh one inside watchUrl.
-
-  But this helper is sometimes needed, if you&#39;d like to initialize a page whose display/state depends on the URL,
-  instead of reading from it in watchUrl&#39;s callback, which you&#39;d probably have put inside didMount (aka too late,
-  the page&#39;s already rendered).
-
-  So, the correct (and idiomatic) usage of this helper is to only use it in a component that&#39;s also subscribed to
-  watchUrl. Please see https://github.com/reasonml-community/reason-react-example/blob/master/src/todomvc/TodoItem.re
-  for an example.
-  </code></pre></div></div>
+<div class='body '><p>this is marked as &quot;dangerous&quot; because you technically shouldn&#39;t be accessing the URL outside of watchUrl&#39;s callback;
+you&#39;d read a potentially stale url, instead of the fresh one inside watchUrl.</p>
+<p>But this helper is sometimes needed, if you&#39;d like to initialize a page whose display/state depends on the URL,
+instead of reading from it in watchUrl&#39;s callback, which you&#39;d probably have put inside didMount (aka too late,
+the page&#39;s already rendered).</p>
+<p>So, the correct (and idiomatic) usage of this helper is to only use it in a component that&#39;s also subscribed to
+watchUrl. Please see https://github.com/reasonml-community/reason-react-example/blob/master/src/todomvc/TodoItem.re
+for an example.</p>
+</div></div>
 </div></div><a href="#Event-handling" id="Event-handling"><h2>Event handling</h2></a>
 
 <div class='doc-item'><h4 class='item module'>module <a href="#module-Callback" id="module-Callback">Callback</a></h4><div class='body module-body'><p><span class='missing'>This module does not have a toplevel documentation block.</span></p>
-<div class='doc-item'><h4 class='item'>type <a href="#type-Callback.t" id="type-Callback.t">t</a>('payload) = ('payload) => unit</h4>
+<div class='doc-item'><h4 class='item'>type <a href="#type-Callback.t" id="type-Callback.t">t</a>('payload) = 'payload => unit</h4>
 
-<div class='body '><p> Type for callbacks</p>
+<div class='body '><p>Type for callbacks</p>
 <p>This type can be left abstract to prevent calling the callback directly.
 For example, calling <code>update handler event</code> would force an immediate
 call of <code>handler</code> with the current state, and can be prevented by defining:</p>
-<pre><code>type t(&#39;payload);</code></pre><p>However, we do want to support immediate calling of a handler, as an escape hatch for the existing async
+<pre class='code'><code>type t(<span class='type-vbl'>&#39;payload</span>);</code></pre><p>However, we do want to support immediate calling of a handler, as an escape hatch for the existing async
 setState reactJS pattern</p>
 </div></div>
 
@@ -260,33 +267,34 @@ setState reactJS pattern</p>
     reduce: 'payload. ('payload, 'action) reduce,
     state: 'state,
     retainedProps: 'retainedProps,
-    send: ('action) => unit,
-    onUnmount: ((unit) => unit) => unit
+    send: 'action => unit,
+    onUnmount: unit => unit => unit
 }</h4>
 
-<div class='body body-empty'><span class='missing'>No documentation for this type</span></div></div>
+<div class='body body-empty'></div></div>
 
 <div class='doc-item'><h4 class='item'>type <a href="#type-update" id="type-update">update</a>('state, 'retainedProps, 'action) = 
     | NoUpdate
     | Update('state)
     | SideEffects(
-        (<a href="#type-self">self</a>('state, 'retainedProps, 'action)) => unit
+        <a href="#type-self">self</a>('state, 'retainedProps, 'action) => unit
     )
     | UpdateWithSideEffects(
         'state,
-        (<a href="#type-self">self</a>('state, 'retainedProps, 'action)) => unit
+        <a href="#type-self">self</a>('state, 'retainedProps, 'action) => unit
     )</h4>
 
-<div class='body body-empty'><span class='missing'>No documentation for this type</span></div></div>
+<div class='body body-empty'></div></div>
 
-<div class='doc-item'><h4 class='item'>type <a href="#type-reduce" id="type-reduce">reduce</a>('payload, 'action) = (
-    ('payload) => 'action
-) => <a href="#module-Callback">Callback</a>.<a href="#type-Callback.t">t</a>('payload)</h4>
+<div class='doc-item'><h4 class='item'>type <a href="#type-reduce" id="type-reduce">reduce</a>(
+    'payload,
+    'action
+) = 'payload => 'action => <a href="#module-Callback">Callback</a>.<a href="#type-Callback.t">t</a>('payload)</h4>
 
-<div class='body body-empty'><span class='missing'>No documentation for this type</span></div></div>
+<div class='body body-empty'></div></div>
 
 <div class='doc-item'><h4 class='item'>type <a href="#type-subscription" id="type-subscription">subscription</a> = 
-    | Sub((unit) => 'token, ('token) => unit): <a href="#type-subscription">subscription</a></h4>
+    | Sub(unit => 'token, 'token => unit): <a href="#type-subscription">subscription</a></h4>
 
 <div class='body '><ul><li>Subscriptions handle resources that need to be initialized and finalized.
 Initialization returns a token, and finalization consumes a token.</li></ul></div></div>
@@ -296,7 +304,7 @@ Initialization returns a token, and finalization consumes a token.</li></ul></di
     newSelf: <a href="#type-self">self</a>('state, 'retainedProps, 'action)
 }</h4>
 
-<div class='body body-empty'><span class='missing'>No documentation for this type</span></div></div>
+<div class='body body-empty'></div></div>
 
 <div class='doc-item'><h4 class='item'>type <a href="#type-componentSpec" id="type-componentSpec">componentSpec</a>(
     'state,
@@ -308,57 +316,139 @@ Initialization returns a token, and finalization consumes a token.</li></ul></di
     debugName: string,
     reactClassInternal: <a href="#type-reactClassInternal">reactClassInternal</a>,
     mut handedOffState: Pervasives.ref(option('state)),
-    willReceiveProps: (
-        <a href="#type-self">self</a>('state, 'retainedProps, 'action)
+    willReceiveProps: <a href="#type-self">self</a>(
+        'state,
+        'retainedProps,
+        'action
     ) => 'state,
-    didMount: (
-        <a href="#type-self">self</a>('state, 'retainedProps, 'action)
+    didMount: <a href="#type-self">self</a>(
+        'state,
+        'retainedProps,
+        'action
     ) => <a href="#type-update">update</a>('state, 'retainedProps, 'action),
-    didUpdate: (
-        <a href="#type-oldNewSelf">oldNewSelf</a>(
-            'state,
-            'retainedProps,
-            'action
-        )
+    didUpdate: <a href="#type-oldNewSelf">oldNewSelf</a>(
+        'state,
+        'retainedProps,
+        'action
     ) => unit,
-    willUnmount: (
-        <a href="#type-self">self</a>('state, 'retainedProps, 'action)
+    willUnmount: <a href="#type-self">self</a>(
+        'state,
+        'retainedProps,
+        'action
     ) => unit,
-    willUpdate: (
-        <a href="#type-oldNewSelf">oldNewSelf</a>(
-            'state,
-            'retainedProps,
-            'action
-        )
+    willUpdate: <a href="#type-oldNewSelf">oldNewSelf</a>(
+        'state,
+        'retainedProps,
+        'action
     ) => unit,
-    shouldUpdate: (
-        <a href="#type-oldNewSelf">oldNewSelf</a>(
-            'state,
-            'retainedProps,
-            'action
-        )
+    shouldUpdate: <a href="#type-oldNewSelf">oldNewSelf</a>(
+        'state,
+        'retainedProps,
+        'action
     ) => bool,
-    render: (
-        <a href="#type-self">self</a>(
-            'state,
-            'retainedProps,
-            'action
-        )
+    render: <a href="#type-self">self</a>(
+        'state,
+        'retainedProps,
+        'action
     ) => <a href="#type-reactElement">reactElement</a>,
-    initialState: (unit) => 'initialState,
+    initialState: unit => 'initialState,
     retainedProps: 'initialRetainedProps,
     reducer: ('action, 'state) => <a href="#type-update">update</a>(
         'state,
         'retainedProps,
         'action
     ),
-    subscriptions: (
-        <a href="#type-self">self</a>('state, 'retainedProps, 'action)
+    subscriptions: <a href="#type-self">self</a>(
+        'state,
+        'retainedProps,
+        'action
     ) => list(<a href="#type-subscription">subscription</a>),
     jsElementWrapped: <a href="#type-jsElementWrapped">jsElementWrapped</a>
 }</h4>
 
-<div class='body body-empty'><span class='missing'>No documentation for this type</span></div></div>
+<div class='body body-empty'></div></div><p>other items defined</p><div class='doc-item'><h4 class='item'>type <a href="#type-reactClass" id="type-reactClass">reactClass</a></h4>
+
+<div class='body body-empty'></div></div>
+
+<div class='doc-item'><h4 class='item'>type <a href="#type-reactElement" id="type-reactElement">reactElement</a></h4>
+
+<div class='body body-empty'></div></div>
+
+<div class='doc-item'><h4 class='item'>type <a href="#type-reactRef" id="type-reactRef">reactRef</a></h4>
+
+<div class='body body-empty'></div></div>
+
+<div class='doc-item'><h4 class='item'>let <a href="#value-createElement" id="value-createElement">createElement</a> = (
+    <a href="#type-reactClass">reactClass</a>,
+    ~?props: option(Js.t(&lt; .. &gt;)),
+    array(<a href="#type-reactElement">reactElement</a>)
+) => <a href="#type-reactElement">reactElement</a></h4>
+
+<div class='body body-empty'></div></div>
+
+<div class='doc-item'><h4 class='item'>let <a href="#value-cloneElement" id="value-cloneElement">cloneElement</a> = (
+    <a href="#type-reactElement">reactElement</a>,
+    ~?props: option(Js.t(&lt; .. &gt;)),
+    array(<a href="#type-reactElement">reactElement</a>)
+) => <a href="#type-reactElement">reactElement</a></h4>
+
+<div class='body body-empty'></div></div>
+
+<div class='doc-item'><h4 class='item'>type <a href="#type-renderNotImplemented" id="type-renderNotImplemented">renderNotImplemented</a> = | RenderNotImplemented</h4>
+
+<div class='body body-empty'></div></div>
+
+<div class='doc-item'><h4 class='item'>type <a href="#type-stateless" id="type-stateless">stateless</a> = unit</h4>
+
+<div class='body '><p>A stateless component is a component with state of type unit. This cannot be
+abstract for now, because a stateless component&#39;s willReceiveProps needs to
+return the state, aka unit. We can provide a helper
+ReasonReact.statelessReturn that&#39;s of type <code>stateless</code>, but that&#39;s verbose</p>
+</div></div>
+
+<div class='doc-item'><h4 class='item'>type <a href="#type-noRetainedProps" id="type-noRetainedProps">noRetainedProps</a></h4>
+
+<div class='body body-empty'></div></div>
+
+<div class='doc-item'><h4 class='item'>type <a href="#type-actionless" id="type-actionless">actionless</a> = unit</h4>
+
+<div class='body '><p> An actionless component is a component with actions of type unit</p>
+</div></div>
+
+<div class='doc-item'><h4 class='item'>type <a href="#type-reactClassInternal" id="type-reactClassInternal">reactClassInternal</a></h4>
+
+<div class='body body-empty'></div></div>
+
+<div class='doc-item'><h4 class='item'>type <a href="#type-jsElementWrapped" id="type-jsElementWrapped">jsElementWrapped</a></h4>
+
+<div class='body '><p> For internal use only</p>
+</div></div>
+
+<div class='doc-item'><h4 class='item'>type <a href="#type-component" id="type-component">component</a>(
+    'state,
+    'retainedProps,
+    'action
+) = <a href="#type-componentSpec">componentSpec</a>(
+    'state,
+    'state,
+    'retainedProps,
+    'retainedProps,
+    'action
+)</h4>
+
+<div class='body body-empty'></div></div>
+
+<div class='doc-item'><h4 class='item'>let <a href="#value-element" id="value-element">element</a> = (
+    ~?key: option(string),
+    ~?ref: option(Js.nullable(<a href="#type-reactRef">reactRef</a>) => unit),
+    <a href="#type-component">component</a>(
+        'state,
+        'retainedProps,
+        'action
+    )
+) => <a href="#type-reactElement">reactElement</a></h4>
+
+<div class='body body-empty'></div></div>
     </div>
     <div class='right-blank'></div>
     </div>
