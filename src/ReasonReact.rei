@@ -28,12 +28,19 @@
  * @doc self, update, reduce, subscription, oldNewSelf, componentSpec
  */;
 
-/***
- * This API assumes that JSX will desugar <Foo key ref attr1=val1 attrn=valn /> into:
+/**
+ * This API assumes that JSX will desugar the following:
  *
- * ReasonReact.element(
- *   Foo.make(~key, ~ref, ~attr1=val1, ~attrn=valn, [| |]
- * )
+ * ```
+ * # let module Foo = {
+ * #    let make = (~attr1, ~attrn, children) => ReasonReact.statelessComponent("Foo");
+ * # };
+ * let a = <Foo key="" ref=((_) => ()) attr1=0 attrn=1 />;
+ * let b = ReasonReact.element(
+ *   ~key="", ~ref=((_) => ()),
+ *   Foo.make(~attr1=0, ~attrn=1, [| |])
+ * );
+ * ```
  */
 
 /***
@@ -66,7 +73,7 @@ type reactRef;
  *
  * In Reason's JSX, text is not automatically wrapped, you have to do it manually:
  *
- * ```reason;skip
+ * ```reason
  * <div>
  *  (ReasonReact.stringToElement("Hello folks"))
  * </div>

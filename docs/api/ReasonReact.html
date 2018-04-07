@@ -91,9 +91,15 @@
 
 <div class='body '><p>Use this for creating an element that&#39;s just text.</p>
 <p>In Reason&#39;s JSX, text is not automatically wrapped, you have to do it manually:</p>
-<pre class='reason;skip'><code class='reason;skip'>&lt;div&gt;
- (ReasonReact.stringToElement(&quot;Hello folks&quot;))
-&lt;/div&gt;</code></pre></div></div>
+<pre class='code'><code><span class='ident' data-type="(
+    string,
+    ~?props: option(ReactDOMRe.reactDOMProps),
+    array(
+        ReasonReact.reactElement
+    )
+) => ReasonReact.reactElement">&lt;div&gt;
+ (<span class='ident' data-type="string => ReasonReact.reactElement">ReasonReact.stringToElement</span>(<span class='string' data-type="string">&quot;Hello folks&quot;</span>))
+&lt;/div&gt;</span></code></pre></div></div>
 
 <div class='doc-item'><h4 class='item'>let <a href="#value-arrayToElement" id="value-arrayToElement">arrayToElement</a> = array(<a href="#type-reactElement">reactElement</a>) => <a href="#type-reactElement">reactElement</a></h4>
 
@@ -368,7 +374,49 @@ Initialization returns a token, and finalization consumes a token.</li></ul></di
 
 <div class='body body-empty'></div></div><p>other items defined</p><div class='doc-item'><h4 class='item'>type <a href="#type-reactClass" id="type-reactClass">reactClass</a></h4>
 
-<div class='body body-empty'></div></div>
+<div class='body '><ul><li>This API assumes that JSX will desugar the following:</li></ul>
+
+<pre class='code'><code>let <span class='pattern-ident' data-type="ReasonReact.reactElement">a</span> = <span class='ident' data-type="(
+    ~?key: option(string),
+    ~?ref: option(
+        Js.nullable(ReasonReact.reactRef) => unit
+    ),
+    ReasonReact.component(
+        ReasonReact.stateless,
+        ReasonReact.noRetainedProps,
+        ReasonReact.actionless
+    )
+) => ReasonReact.reactElement"><span class='ident' data-type="(
+    ~attr1: int,
+    ~attrn: int,
+    array('a)
+) => ReasonReact.component(
+    ReasonReact.stateless,
+    ReasonReact.noRetainedProps,
+    ReasonReact.actionless
+)">&lt;Foo key=<span class='string' data-type="string">&quot;&quot;</span> ref=((_) =&gt; <span class='constructor' data-type="unit">()</span>) attr1=<span class='int' data-type="int">0</span> attrn=<span class='int' data-type="int">1</span> /&gt;</span></span>;
+let <span class='pattern-ident' data-type="ReasonReact.reactElement">b</span> = <span class='ident' data-type="(
+    ~?key: option(string),
+    ~?ref: option(
+        Js.nullable(ReasonReact.reactRef) => unit
+    ),
+    ReasonReact.component(
+        ReasonReact.stateless,
+        ReasonReact.noRetainedProps,
+        ReasonReact.actionless
+    )
+) => ReasonReact.reactElement">ReasonReact.element</span>(
+  ~key=<span class='string' data-type="string">&quot;&quot;</span>, ~ref=((_) =&gt; <span class='constructor' data-type="unit">()</span>),
+  <span class='ident' data-type="(
+    ~attr1: int,
+    ~attrn: int,
+    array('a)
+) => ReasonReact.component(
+    ReasonReact.stateless,
+    ReasonReact.noRetainedProps,
+    ReasonReact.actionless
+)">Foo.make</span>(~attr1=<span class='int' data-type="int">0</span>, ~attrn=<span class='int' data-type="int">1</span>, [| |])
+);</code></pre></div></div>
 
 <div class='doc-item'><h4 class='item'>type <a href="#type-reactElement" id="type-reactElement">reactElement</a></h4>
 

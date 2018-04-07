@@ -5,6 +5,7 @@
 {
   "name" : "reason-react",
   "sources": "src",
+  "reason" : {"react-jsx" : 2},
   "refmt": 3,
   "bsc-flags": ["-bs-no-version-header"]
 }
