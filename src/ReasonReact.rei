@@ -1,6 +1,11 @@
 
 /** # ReasonReact
  *
+ * ```reason;shared(sandbox);hide
+ * [@bs.val] external sandboxDivId: string = "";
+ * let sandboxRender = (el) => ReactDOMRe.renderToElementWithId(el, sandboxDivId);
+ * ```
+ *
  * This is the main exposted API.
  *
  * ## Element creators
@@ -73,10 +78,10 @@ type reactRef;
  *
  * In Reason's JSX, text is not automatically wrapped, you have to do it manually:
  *
- * ```reason
- * <div>
+ * ```reason;div;use(sandbox)
+ * sandboxRender(<div>
  *  (ReasonReact.stringToElement("Hello folks"))
- * </div>
+ * </div>)
  * ```
 */
 external stringToElement : string => reactElement = "%identity";

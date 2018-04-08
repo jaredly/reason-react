@@ -8,6 +8,11 @@ The component template is created through `ReasonReact.statelessComponent("TheCo
 
 As an example, here's the file `Greeting.re`:
 
+```reason;shared(sandbox);hide
+[@bs.val] external sandboxDivId: string = "";
+let sandboxRender = (el) => ReactDOMRe.renderToElementWithId(el, sandboxDivId);
+```
+
 ```reason
 let component = ReasonReact.statelessComponent("Greeting");
 ```
@@ -37,9 +42,10 @@ let module Greeting = {
 };
 ```
 
-```reason;use(Greeting)
+```reason;use(Greeting);use(sandbox);div
 /* call the `make` function in the module `Greeting` */
-ReasonReact.element(Greeting.make(~name="John", [||]))
+let el = ReasonReact.element(Greeting.make(~name="John", [||]));
+sandboxRender(el);
 /* equivalent to <Greeting name="John" /> */
 ```
 
@@ -48,7 +54,6 @@ ReasonReact.element(Greeting.make(~name="John", [||]))
 **Note**: do **not** inline `let component` into the `make` function body like the following!
 
 ```reason
-# open ReasonReact;
 let make = _children => {
   ...(ReasonReact.statelessComponent("Greeting")),
   render: self => <div />
@@ -96,12 +101,13 @@ let _ = <Foo name="Reason" age=ageFromProps />
 
 Because `age` expects a normal `int` when you do call `Foo` with it, not an `option int`! Naively, you'd be forced to solve this like so:
 
-```reason;use(Foo)
+```reason;use(Foo);use(sandbox);div
 let ageFromProps = Some(10);
-switch (ageFromProps) {
+let el = switch (ageFromProps) {
 | None => <Foo name="Reason" />
 | Some(nonNullableAge) => <Foo name="Reason" age=nonNullableAge />
-}
+};
+sandboxRender(el);
 ```
 
 Cumbersome. Fortunately, here's a better way to explicitly pass an optional value:
