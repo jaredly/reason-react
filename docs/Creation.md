@@ -29,7 +29,9 @@ let make = (~name, _children) => {
   render: _self => <div> {ReasonReact.stringToElement(name)} </div>
 };
 # };
-# sandboxRender(<Greeting name="Hello" />)
+# sandboxRender(
+!# <Greeting name="Hello" />
+# )
 ```
 
 The `make` function is what's called by ReasonReact's JSX, described later. For now, the JSX-less way of calling & rendering a component is:
@@ -117,7 +119,7 @@ Cumbersome. Fortunately, here's a better way to explicitly pass an optional valu
 
 ```reason;use(Foo)
 let ageFromProps = Some(10);
-let _ = <Foo name="Reason" age=?ageFromProps />
+sandboxRender(<Foo name="Reason" age=?ageFromProps />)
 ```
 
 It says "I understand that `age` is optional and that when I use the label I should pass an int. But I'd like to forward an `option` value explicitly". This isn't a JSX trick we've made up; it's just a language feature! See the section on "Explicitly Passed Optional" in the [Reason docs](https://reasonml.github.io/docs/en/function.html#explicitly-passed-optional).
