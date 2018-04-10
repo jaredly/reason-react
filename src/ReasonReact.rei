@@ -7,9 +7,9 @@
  * ```
  *
  * ```reason;use(sandbox);shared(render)
- * sandboxRender(
+ * sandboxRender({
  * %{code}%
- * )
+ * })
  * ```
  *
  *

@@ -127,7 +127,7 @@
 {"href": "./api/ReasonReact.html#Component-constructors", "title": "Component constructors", "contents": "", "rendered": "", "breadcrumb": "ReasonReact"},
 {"href": "./api/ReasonReact.html#Element-creators", "title": "Element creators", "contents": "", "rendered": "", "breadcrumb": "ReasonReact"},
 {"href": "./api/ReasonReact.html", "title": "ReasonReact", "contents": "This is the main exposted API.", "rendered": "This is the main exposted API.", "breadcrumb": "ReasonReact"},
-{"href": "./api/ReasonReact.html", "title": "code block", "contents": "sandboxRender(\n%{code}%\n)", "rendered": "<pre><code>sandboxRender(\n%{code}%\n)</code></pre>", "breadcrumb": "ReasonReact"},
+{"href": "./api/ReasonReact.html", "title": "code block", "contents": "sandboxRender({\n%{code}%\n})", "rendered": "<pre><code>sandboxRender({\n%{code}%\n})</code></pre>", "breadcrumb": "ReasonReact"},
 {"href": "./api/ReasonReact.html", "title": "code block", "contents": "[@bs.val] external sandboxDivId: string = \"\";\nlet sandboxRender = (el) => ReactDOMRe.renderToElementWithId(el, sandboxDivId);", "rendered": "<pre><code>[@bs.val] external sandboxDivId: string = \"\";\nlet sandboxRender = (el) => ReactDOMRe.renderToElementWithId(el, sandboxDivId);</code></pre>", "breadcrumb": "ReasonReact"},
 {"href": "./api/ReasonReact.html#ReasonReact", "title": "ReasonReact", "contents": "", "rendered": "", "breadcrumb": "ReasonReact"},
 {"href": "./api/ReactEventRe.html#value-Transition.elapsedTime", "title": "Transition.elapsedTime", "contents": "elapsedTime t float ", "rendered": "<h4 class='item'>let elapsedTime = <a href=\"./api/ReactEventRe.html#type-Transition.t\">t</a> => float</h4>", "breadcrumb": "ReactEventRe"},
