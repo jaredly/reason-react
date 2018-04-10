@@ -64,6 +64,8 @@ const loadRefmt = memoLoad('refmt.js');
 const loadOcaml = memoLoad('bs-2.2.4.js');
 const loadOcamlDeps = memoLoad('bucklescript-deps.js');
 const loadCodeMirror = memoLoad('codemirror.js');
+const loadRust = memoLoad('rust.js');
+const loadSimple = memoLoad('simple.js');
 const loadCodeMirrorCss = memoCss('codemirror.css');
 const loadAll = () => Promise.all([loadJsx(), loadRefmt(), loadDeps(), loadOcaml().then(() => loadOcamlDeps())])
 
@@ -112,6 +114,14 @@ var initBlocks = () => {
 
     const logs = div({class: 'block-logs'}, []);
 
+    const bundleScript = document.querySelector('script[type=docre-bundle][data-block-id="' + id + '"]')
+    const sourceScript = document.querySelector('script[type=docre-source][data-block-id="' + id + '"]')
+
+    if (!bundleScript) {
+      // not runnable, not editable
+      return
+    }
+
     let ran = false
 
     window.process = {env: {NODE_ENV: 'production'}}
@@ -122,13 +132,12 @@ var initBlocks = () => {
       }
       ran = true
       loadDeps().then(() => {
-        const bundle = document.querySelector('script[type=docre-bundle][data-block-id="' + id + '"]')
         console.log(id)
-        if (!bundle) {
+        if (!bundleScript) {
           console.error('bundle not found')
           return
         }
-        runSandboxed(bundle.textContent, logs, context);
+        runSandboxed(bundleScript.textContent, logs, context);
       })
     }
     let context = {}
@@ -255,6 +264,9 @@ var initBlocks = () => {
       }
     }
 
+
+    let onEditRun = () => {};
+
     let playButton
     if (viewContext === 'canvas') {
       playButton = div({class: 'block-canvas-play'}, ["▶"])
@@ -278,6 +290,7 @@ var initBlocks = () => {
       parent.appendChild(container)
       playButton = div({class: 'block-target-right'}, ["▶"])
       context = {sandboxDiv: target, sandboxDivId: target.id}
+      onEditRun = () => container.classList.add('active')
       playButton.onclick = () => {
         playButton.style.display = 'none'
         container.classList.add('active')
@@ -285,14 +298,11 @@ var initBlocks = () => {
       }
       parent.appendChild(playButton)
     } else {
-      /*
-      const startBlock = div({class: 'block-target-small'}, ["▶"])
-      parent.appendChild(startBlock)
-      startBlock.onclick = () => {
+      playButton = div({class: 'block-target-right'}, ["▶"])
+      playButton.onclick = () => {
         startBlock.style.display = 'none'
         runBlock({})
       }
-      */
     }
 
     const startEditing = () => {
@@ -300,9 +310,8 @@ var initBlocks = () => {
         playButton.parentNode.removeChild(playButton)
         playButton = null
       }
-      const bundle = document.querySelector('script[type=docre-source][data-block-id="' + id + '"]')
-      // const code = bundle.textContent
-      const {before, prefix, mainCode, suffix} = processHashes(bundle.textContent)
+      // const code = sourceScript.textContent
+      const {before, prefix, mainCode, suffix} = processHashes(sourceScript.textContent)
       console.log([prefix, mainCode, suffix])
 
       const textarea = node('textarea', {class: 'code-block-editor', style: {width: '100%'}})
@@ -310,27 +319,37 @@ var initBlocks = () => {
       pre.replaceWith(textarea)
       textarea.value = 'loading codemirror...'
 
-      Promise.all([loadCodeMirror(), loadCodeMirrorCss()]).then(() => {
+      Promise.all([loadCodeMirror().then(() => loadSimple()).then(() => loadRust()), loadCodeMirrorCss()]).then(() => {
         textarea.value = mainCode
+
+        const run = (cm) => {
+          onEditRun();
+          execute(cm, prefix + cm.getValue() + suffix, before)
+        }
 
         const cm = CodeMirror.fromTextArea(textarea, {
           lineNumbers: true,
           lineWrapping: true,
           viewportMargin: Infinity,
           extraKeys: {
-            'Cmd-Enter': (cm) => execute(cm, prefix + cm.getValue() + suffix, before),
-            'Ctrl-Enter': (cm) => execute(cm, prefix + cm.getValue() + suffix, before),
+            'Cmd-Enter': (cm) => run(cm),
+            'Ctrl-Enter': (cm) => run(cm),
             Tab: betterTab,
             'Shift-Tab': betterShiftTab,
-          }
+          },
+          mode: 'rust',
         })
 
         const play = node('button', {class: 'code-edit-run'}, ["▶"])
-        play.onclick = () => execute(cm, prefix + cm.getValue() + suffix, before)
+        play.onclick = () => run(cm)
         parent.appendChild(play)
       })
     }
 
+    if (!sourceScript) {
+      // not editable
+      return
+    }
     const editButton = node('button', {class: 'code-edit-button'}, ["Edit"]);
     pre.appendChild(editButton)
     editButton.addEventListener('click', startEditing)

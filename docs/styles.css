@@ -86,7 +86,10 @@ div.compile-error {
   opacity: 1;
 }
 
+.CodeMirror,
+.CodeMirror pre,
 .code-block,
+.code-block .CodeMirror pre,
 pre > code,
 h4.item,
 .type-viewer,
@@ -357,6 +360,8 @@ a.level-5 {
 pre.code > code {
   color: #aaa;
 }
+
+.code-block > .CodeMirror,
 pre.code {
   border-radius: 3px;
   box-shadow: 0 0.5px 3px #aaa;

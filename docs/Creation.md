@@ -13,13 +13,14 @@ As an example, here's the file `Greeting.re`:
 let sandboxRender = (el) => ReactDOMRe.renderToElementWithId(el, sandboxDivId);
 ```
 
-```reason
+```reason;no-run
 let component = ReasonReact.statelessComponent("Greeting");
 ```
 
 **In ReactJS**, you'd create a component class and call it through JSX which transforms into `React.createElement(myClass, {prop1: 'hello'})` under the hood. **In ReasonReact**, instead of passing the whole "class" (aka component template) into a hypothetical `ReasonReact.createElement` function, you'd instead declare a `make` function:
 
-```reason
+```reason;use(sandbox);div
+# let module Greeting = {
 /* still in Greeting.re */
 let component = ReasonReact.statelessComponent("Greeting");
 
@@ -27,6 +28,8 @@ let make = (~name, _children) => {
   ...component, /* spread the template's other defaults into here  */
   render: _self => <div> {ReasonReact.stringToElement(name)} </div>
 };
+# };
+# sandboxRender(<Greeting name="Hello" />)
 ```
 
 The `make` function is what's called by ReasonReact's JSX, described later. For now, the JSX-less way of calling & rendering a component is:
