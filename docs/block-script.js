@@ -311,6 +311,7 @@ var initBlocks = () => {
           playButton.style.display = 'none'
         })
       }
+      parent.appendChild(playButton)
     }
 
     parent.appendChild(logs)
@@ -324,7 +325,7 @@ var initBlocks = () => {
 
     const startEditing = () => {
       editButton.textContent = loadingIcon
-      if (playButton) {
+      if (playButton && playButton.parentNode) {
         playButton.parentNode.removeChild(playButton)
         playButton = null
       }

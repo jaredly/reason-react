@@ -56,7 +56,7 @@ sandboxRender(el);
 
 **Note**: do **not** inline `let component` into the `make` function body like the following!
 
-```reason
+```reason;no-run
 let make = _children => {
   ...(ReasonReact.statelessComponent("Greeting")),
   render: self => <div />
