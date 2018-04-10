@@ -128,10 +128,10 @@ var initBlocks = () => {
 
     const runBlock = (context) => {
       if (ran) {
-        return
+        return Promise.resolve()
       }
       ran = true
-      loadDeps().then(() => {
+      return loadDeps().then(() => {
         console.log(id)
         if (!bundleScript) {
           console.error('bundle not found')
@@ -181,7 +181,7 @@ var initBlocks = () => {
           className: 'CodeMirror-error-mark',
         })
       }
-      loadAll().then(() => {
+      return loadAll().then(() => {
         let ocaml
         try {
           ocaml = window.printML(window.parseRE(code))
@@ -267,6 +267,9 @@ var initBlocks = () => {
 
     let onEditRun = () => {};
 
+    let loadingIcon = "⋯";
+    let playIcon = "▶";
+
     let playButton
     if (viewContext === 'canvas') {
       playButton = div({class: 'block-canvas-play'}, ["▶"])
@@ -275,9 +278,10 @@ var initBlocks = () => {
       canvas.height = 200
       context = {sandboxCanvas: canvas, sandboxCanvasId: canvas.id}
       playButton.onclick = () => {
-        console.log('start the music!')
-        playButton.style.display = 'none'
-        runBlock(context)
+        playButton.textContent = loadingIcon
+        runBlock(context).then(() => {
+          playButton.style.display = 'none'
+        })
       }
       const canvasBlock = div({class: 'block-canvas-container'}, [
         canvas,
@@ -288,20 +292,24 @@ var initBlocks = () => {
       const target = div({id: 'block-target-div-' + id})
       const container = div({class: 'block-target-container'}, [target])
       parent.appendChild(container)
-      playButton = div({class: 'block-target-right'}, ["▶"])
+      playButton = div({class: 'block-target-right'}, [playIcon])
       context = {sandboxDiv: target, sandboxDivId: target.id}
       onEditRun = () => container.classList.add('active')
       playButton.onclick = () => {
-        playButton.style.display = 'none'
-        container.classList.add('active')
-        runBlock(context)
+        playButton.textContent = loadingIcon
+        runBlock(context).then(() => {
+          playButton.style.display = 'none'
+          container.classList.add('active')
+        })
       }
       parent.appendChild(playButton)
     } else {
-      playButton = div({class: 'block-target-right'}, ["▶"])
+      playButton = div({class: 'block-target-right'}, [playIcon])
       playButton.onclick = () => {
-        startBlock.style.display = 'none'
-        runBlock({})
+        playButton.textContent = loadingIcon
+        runBlock({}).then(() => {
+          playButton.style.display = 'none'
+        })
       }
     }
 
@@ -321,10 +329,14 @@ var initBlocks = () => {
 
       Promise.all([loadCodeMirror().then(() => loadSimple()).then(() => loadRust()), loadCodeMirrorCss()]).then(() => {
         textarea.value = mainCode
+        let playButton
 
         const run = (cm) => {
           onEditRun();
-          execute(cm, prefix + cm.getValue() + suffix, before)
+          playButton.textContent = loadingIcon
+          execute(cm, prefix + cm.getValue() + suffix, before).then(() => {
+            playButton.textContent = playIcon
+          })
         }
 
         const cm = CodeMirror.fromTextArea(textarea, {
@@ -340,9 +352,9 @@ var initBlocks = () => {
           mode: 'rust',
         })
 
-        const play = node('button', {class: 'code-edit-run'}, ["▶"])
-        play.onclick = () => run(cm)
-        parent.appendChild(play)
+        playButton = node('button', {class: 'code-edit-run'}, ["▶"])
+        playButton.onclick = () => run(cm)
+        parent.appendChild(playButton)
       })
     }
 
