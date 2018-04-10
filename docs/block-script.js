@@ -313,7 +313,17 @@ var initBlocks = () => {
       }
     }
 
+    parent.appendChild(logs)
+
+    if (!sourceScript) {
+      // not editable
+      return
+    }
+    const editButton = node('button', {class: 'code-edit-button'}, ["Edit"]);
+    pre.appendChild(editButton)
+
     const startEditing = () => {
+      editButton.textContent = loadingIcon
       if (playButton) {
         playButton.parentNode.removeChild(playButton)
         playButton = null
@@ -322,12 +332,10 @@ var initBlocks = () => {
       const {before, prefix, mainCode, suffix} = processHashes(sourceScript.textContent)
       console.log([prefix, mainCode, suffix])
 
-      const textarea = node('textarea', {class: 'code-block-editor', style: {width: '100%'}})
-      loadAll();
-      pre.replaceWith(textarea)
-      textarea.value = 'loading codemirror...'
 
       Promise.all([loadCodeMirror().then(() => loadSimple()).then(() => loadRust()), loadCodeMirrorCss()]).then(() => {
+        const textarea = node('textarea', {class: 'code-block-editor', style: {width: '100%'}})
+        pre.replaceWith(textarea)
         textarea.value = mainCode
         let playButton
 
@@ -357,16 +365,8 @@ var initBlocks = () => {
         parent.appendChild(playButton)
       })
     }
-
-    if (!sourceScript) {
-      // not editable
-      return
-    }
-    const editButton = node('button', {class: 'code-edit-button'}, ["Edit"]);
-    pre.appendChild(editButton)
     editButton.addEventListener('click', startEditing)
 
-    parent.appendChild(logs)
   })
 }
 
