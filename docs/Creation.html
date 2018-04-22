@@ -7,7 +7,7 @@
 <script defer src='./script.js'></script>
 <title>Creation</title>
 <body>
-<script>window.relativeToRoot="."</script>
+<script>window.relativeToRoot="./"</script>
 <script defer src="./block-script.js"></script>
 <div id='error-message'>
   ⚠️ Oops! This page doesn't appear to define a <span>type</span> called <code>_</code>.
@@ -21,15 +21,16 @@
     <div class='sidebar'>
       <a href="./search.html" style="display: block; padding: 0 8px;">Search</a>
       <div class='docs-listing'><a href="./index.html">Home</a>
-<a href="./Creation.html">Creation</a></div>
-      <div class='table-of-contents'>
+<a href="./Creation.html">Creation</a>
+<a href="./fonts/LICENSE.html">LICENSE</a></div>
       <div class='toc-header'>Page Contents</div>
+      <div class='table-of-contents'>
       <a href="#creation--props--amp--self" class='level-1 header'>Creation, Props &amp; Self</a>
 <a href="#props" class='level-2 header'>Props</a>
 <a href="#neat-trick-with-props-forwarding" class='level-3 header'>Neat Trick with Props Forwarding</a>
 <a href="#self" class='level-2 header'><code>self</code></a>
       </div>
-      <div class='project-listing'><div class='project-title'>Package modules</div><a href="./api/ReactDOMRe.html">ReactDOMRe</a>
+      <div class='project-title'>Package modules</div><div class='project-listing'><a href="./api/ReactDOMRe.html">ReactDOMRe</a>
 <a href="./api/ReactDOMServerRe.html">ReactDOMServerRe</a>
 <a href="./api/ReactEventRe.html">ReactEventRe</a>
 <a href="./api/ReasonReact.html">ReasonReact</a>
@@ -38,7 +39,7 @@
     </div>
   
     <div class='main'>
-    <a href="https://github.com/jaredly/reason-react/blob/master/./docs/./Creation.md" class="edit-link">Edit</a>
+    <a href="https://github.com/jaredly/reason-react/blob/master/docs/Creation.md" class="edit-link">Edit</a>
     <a href="#creation--props--amp--self" id="creation--props--amp--self"><h1>Creation, Props &amp; Self</h1></a>
 
 <p><em>The documentation assumes relative familiarity with ReactJS.</em></p>
@@ -50,17 +51,17 @@
 <div class='code-block'>
   
   <pre class='code' data-block-id='0' id='block-0'><code>let <span class='pattern-ident' data-type="ReasonReact.componentSpec(
-    ReasonReact.stateless,
-    ReasonReact.stateless,
-    ReasonReact.noRetainedProps,
-    ReasonReact.noRetainedProps,
-    ReasonReact.actionless
+  ReasonReact.stateless,
+  ReasonReact.stateless,
+  ReasonReact.noRetainedProps,
+  ReasonReact.noRetainedProps,
+  ReasonReact.actionless
 )">component</span> = <span class='ident' data-type="string => ReasonReact.componentSpec(
-    ReasonReact.stateless,
-    ReasonReact.stateless,
-    ReasonReact.noRetainedProps,
-    ReasonReact.noRetainedProps,
-    ReasonReact.actionless
+  ReasonReact.stateless,
+  ReasonReact.stateless,
+  ReasonReact.noRetainedProps,
+  ReasonReact.noRetainedProps,
+  ReasonReact.actionless
 )">ReasonReact.statelessComponent</span>(<span class='string' data-type="string">&quot;Greeting&quot;</span>);</code></pre>
   
   <script type='docre-source' data-block-id="0">let component = ReasonReact.statelessComponent("Greeting");</script>
@@ -72,49 +73,49 @@
   
   <pre class='code' data-block-id='1' id='block-1'><code>/* still in Greeting.re */
 let <span class='pattern-ident' data-type="ReasonReact.componentSpec(
-    ReasonReact.stateless,
-    ReasonReact.stateless,
-    ReasonReact.noRetainedProps,
-    ReasonReact.noRetainedProps,
-    ReasonReact.actionless
+  ReasonReact.stateless,
+  ReasonReact.stateless,
+  ReasonReact.noRetainedProps,
+  ReasonReact.noRetainedProps,
+  ReasonReact.actionless
 )">component</span> = <span class='ident' data-type="string => ReasonReact.componentSpec(
-    ReasonReact.stateless,
-    ReasonReact.stateless,
-    ReasonReact.noRetainedProps,
-    ReasonReact.noRetainedProps,
-    ReasonReact.actionless
+  ReasonReact.stateless,
+  ReasonReact.stateless,
+  ReasonReact.noRetainedProps,
+  ReasonReact.noRetainedProps,
+  ReasonReact.actionless
 )">ReasonReact.statelessComponent</span>(<span class='string' data-type="string">&quot;Greeting&quot;</span>);
 
 let <span class='pattern-ident' data-type="(~name: string, 'a) => ReasonReact.componentSpec(
-    ReasonReact.stateless,
-    ReasonReact.stateless,
-    ReasonReact.noRetainedProps,
-    ReasonReact.noRetainedProps,
-    ReasonReact.actionless
+  ReasonReact.stateless,
+  ReasonReact.stateless,
+  ReasonReact.noRetainedProps,
+  ReasonReact.noRetainedProps,
+  ReasonReact.actionless
 )">make</span> = (~<span class='pattern-ident' data-type="string">name</span>, <span class='pattern-ident' data-type="'a">_children</span>) =&gt; <span data-type="ReasonReact.componentSpec(
-    ReasonReact.stateless,
-    ReasonReact.stateless,
-    ReasonReact.noRetainedProps,
-    ReasonReact.noRetainedProps,
-    ReasonReact.actionless
+  ReasonReact.stateless,
+  ReasonReact.stateless,
+  ReasonReact.noRetainedProps,
+  ReasonReact.noRetainedProps,
+  ReasonReact.actionless
 )">{
   ...<span class='ident' data-type="ReasonReact.componentSpec(
-    ReasonReact.stateless,
-    ReasonReact.stateless,
-    ReasonReact.noRetainedProps,
-    ReasonReact.noRetainedProps,
-    ReasonReact.actionless
+  ReasonReact.stateless,
+  ReasonReact.stateless,
+  ReasonReact.noRetainedProps,
+  ReasonReact.noRetainedProps,
+  ReasonReact.actionless
 )">component</span>, /* spread the template&#39;s other defaults into here  */
   render: <span class='pattern-ident' data-type="ReasonReact.self(
-    ReasonReact.stateless,
-    ReasonReact.noRetainedProps,
-    ReasonReact.actionless
+  ReasonReact.stateless,
+  ReasonReact.noRetainedProps,
+  ReasonReact.actionless
 )">_self</span> =&gt; <span class='ident' data-type="(
-    string,
-    ~?props: option(ReactDOMRe.reactDOMProps),
-    array(
-        ReasonReact.reactElement
-    )
+  string,
+  ~?props: option(ReactDOMRe.reactDOMProps),
+  array(
+    ReasonReact.reactElement
+  )
 ) => ReasonReact.reactElement">&lt;div&gt; {<span class='ident' data-type="string => ReasonReact.reactElement">ReasonReact.stringToElement</span>(<span class='ident' data-type="string">name</span>)} &lt;/div&gt;</span>
 }</span>;</code></pre>
   <div class='code-post'>&lt;Greeting name=&quot;Hello&quot; /&gt;</div>
@@ -132,11 +133,11 @@ let make = (~name, _children) => {
 # sandboxRender(
 !# <Greeting name="Hello" />
 # )</script>
-  <div data-block-id='1' data-context="div" class='block-target'></div><script type='docre-bundle' data-block-id='1'>
+  <div data-block-id='1' data-context="div" data-block-syntax="re" class='block-target'></div><script type='docre-bundle' data-block-id='1'>
 ;(function() { // generated by pack.re
 let modules = {}
 let initializers = {
-    1: function(module, exports, require) {// Generated by BUCKLESCRIPT VERSION 2.2.4, PLEASE EDIT WITH CARE
+    1: function(module, exports, require) {// Generated by BUCKLESCRIPT VERSION 2.2.3, PLEASE EDIT WITH CARE
 'use strict';
 
 var React = window.packRequire("./node_modules/react/index.js");
@@ -192,19 +193,17 @@ let require = (id) => {
   
   <pre class='code' data-block-id='2' id='block-2'><code>/* call the `make` function in the module `Greeting` */
 let <span class='pattern-ident' data-type="ReasonReact.reactElement">el</span> = <span class='ident' data-type="(
-    ~?key: option(string),
-    ~?ref: option(
-        Js.nullable(ReasonReact.reactRef) => unit
-    ),
-    ReasonReact.component(
-        ReasonReact.stateless,
-        ReasonReact.noRetainedProps,
-        ReasonReact.actionless
-    )
-) => ReasonReact.reactElement">ReasonReact.element</span>(<span class='ident' data-type="(~name: string, array('a)) => ReasonReact.component(
+  ~?key: option(string),
+  ~?ref: option(Js.nullable(ReasonReact.reactRef) => unit),
+  ReasonReact.component(
     ReasonReact.stateless,
     ReasonReact.noRetainedProps,
     ReasonReact.actionless
+  )
+) => ReasonReact.reactElement">ReasonReact.element</span>(<span class='ident' data-type="(~name: string, array('a)) => ReasonReact.component(
+  ReasonReact.stateless,
+  ReasonReact.noRetainedProps,
+  ReasonReact.actionless
 )">Greeting.make</span>(~name=<span class='string' data-type="string">&quot;John&quot;</span>, [||]));
 <span class='ident' data-type="ReasonReact.reactElement => unit">sandboxRender</span>(<span class='ident' data-type="ReasonReact.reactElement">el</span>);
 /* equivalent to &lt;Greeting name=&quot;John&quot; /&gt; */</code></pre>
@@ -223,11 +222,11 @@ let <span class='pattern-ident' data-type="ReasonReact.reactElement">el</span> =
 let el = ReasonReact.element(Greeting.make(~name="John", [||]));
 sandboxRender(el);
 /* equivalent to <Greeting name="John" /> */</script>
-  <div data-block-id='2' data-context="div" class='block-target'></div><script type='docre-bundle' data-block-id='2'>
+  <div data-block-id='2' data-context="div" data-block-syntax="re" class='block-target'></div><script type='docre-bundle' data-block-id='2'>
 ;(function() { // generated by pack.re
 let modules = {}
 let initializers = {
-    1: function(module, exports, require) {// Generated by BUCKLESCRIPT VERSION 2.2.4, PLEASE EDIT WITH CARE
+    1: function(module, exports, require) {// Generated by BUCKLESCRIPT VERSION 2.2.3, PLEASE EDIT WITH CARE
 'use strict';
 
 var React = window.packRequire("./node_modules/react/index.js");
@@ -282,35 +281,35 @@ let require = (id) => {
 <div class='code-block'>
   
   <pre class='code' data-block-id='3' id='block-3'><code>let <span class='pattern-ident' data-type="'a => ReasonReact.componentSpec(
-    ReasonReact.stateless,
-    ReasonReact.stateless,
-    ReasonReact.noRetainedProps,
-    ReasonReact.noRetainedProps,
-    ReasonReact.actionless
+  ReasonReact.stateless,
+  ReasonReact.stateless,
+  ReasonReact.noRetainedProps,
+  ReasonReact.noRetainedProps,
+  ReasonReact.actionless
 )">make</span> = <span class='pattern-ident' data-type="'a">_children</span> =&gt; <span data-type="ReasonReact.componentSpec(
-    ReasonReact.stateless,
-    ReasonReact.stateless,
-    ReasonReact.noRetainedProps,
-    ReasonReact.noRetainedProps,
-    ReasonReact.actionless
+  ReasonReact.stateless,
+  ReasonReact.stateless,
+  ReasonReact.noRetainedProps,
+  ReasonReact.noRetainedProps,
+  ReasonReact.actionless
 )">{
   ...(<span class='ident' data-type="string => ReasonReact.componentSpec(
-    ReasonReact.stateless,
-    ReasonReact.stateless,
-    ReasonReact.noRetainedProps,
-    ReasonReact.noRetainedProps,
-    ReasonReact.actionless
+  ReasonReact.stateless,
+  ReasonReact.stateless,
+  ReasonReact.noRetainedProps,
+  ReasonReact.noRetainedProps,
+  ReasonReact.actionless
 )">ReasonReact.statelessComponent</span>(<span class='string' data-type="string">&quot;Greeting&quot;</span>)),
   render: <span class='pattern-ident' data-type="ReasonReact.self(
-    ReasonReact.stateless,
-    ReasonReact.noRetainedProps,
-    ReasonReact.actionless
+  ReasonReact.stateless,
+  ReasonReact.noRetainedProps,
+  ReasonReact.actionless
 )">self</span> =&gt; <span class='ident' data-type="(
-    string,
-    ~?props: option(ReactDOMRe.reactDOMProps),
-    array(
-        ReasonReact.reactElement
-    )
+  string,
+  ~?props: option(ReactDOMRe.reactDOMProps),
+  array(
+    ReasonReact.reactElement
+  )
 ) => ReasonReact.reactElement">&lt;div /&gt;</span>
 }</span></code></pre>
   
@@ -341,27 +340,25 @@ let require = (id) => {
   
   <pre class='code' data-block-id='4' id='block-4'><code>let <span class='pattern-ident' data-type="option(int)">ageFromProps</span> = <span class='constructor' data-type="option(int)">Some</span>(<span class='int' data-type="int">10</span>);
 let _ = <span class='ident' data-type="(
-    ~name: string,
-    ~?age: option(int),
-    array(
-        ReasonReact.reactElement
-    )
+  ~name: string,
+  ~?age: option(int),
+  array(
+    ReasonReact.reactElement
+  )
 ) => ReasonReact.componentSpec(
-    ReasonReact.stateless,
-    ReasonReact.stateless,
-    ReasonReact.noRetainedProps,
-    ReasonReact.noRetainedProps,
-    ReasonReact.actionless
+  ReasonReact.stateless,
+  ReasonReact.stateless,
+  ReasonReact.noRetainedProps,
+  ReasonReact.noRetainedProps,
+  ReasonReact.actionless
 )"><span class='ident' data-type="(
-    ~?key: option(string),
-    ~?ref: option(
-        Js.nullable(ReasonReact.reactRef) => unit
-    ),
-    ReasonReact.component(
-        'a,
-        'a,
-        'a
-    )
+  ~?key: option(string),
+  ~?ref: option(Js.nullable(ReasonReact.reactRef) => unit),
+  ReasonReact.component(
+    'a,
+    'a,
+    'a
+  )
 ) => ReasonReact.reactElement">&lt;Foo name=<span class='string' data-type="string">&quot;Reason&quot;</span> age=<span class='ident' data-type="option(int)">ageFromProps</span> /&gt;</span></span></code></pre>
   
   <script type='docre-source' data-block-id="4">#let module Foo = {
@@ -373,7 +370,8 @@ let _ = <span class='ident' data-type="(
 #};
 let ageFromProps = Some(10);
 let _ = <Foo name="Reason" age=ageFromProps /></script>
-  <div class='type-error'>Type Error:\nFile &quot;&quot;, line 9, characters 31-43:
+  <div class='type-error'>Type Error:
+File &quot;&quot;, line 9, characters 31-43:
 Error: This expression has type int option
        but an expression was expected of type int</div>
 </div>
@@ -384,46 +382,38 @@ Error: This expression has type int option
   <pre class='code' data-block-id='5' id='block-5'><code>let <span class='pattern-ident' data-type="option(int)">ageFromProps</span> = <span class='constructor' data-type="option(int)">Some</span>(<span class='int' data-type="int">10</span>);
 let <span class='pattern-ident' data-type="ReasonReact.reactElement">el</span> = switch (<span class='ident' data-type="option(int)">ageFromProps</span>) {
 | <span class='pattern-constructor' data-type="option(int)">None</span> =&gt; <span class='ident' data-type="(
-    ~?key: option(string),
-    ~?ref: option(
-        Js.nullable(ReasonReact.reactRef) => unit
-    ),
-    ReasonReact.component(
-        ReasonReact.stateless,
-        ReasonReact.noRetainedProps,
-        ReasonReact.actionless
-    )
-) => ReasonReact.reactElement"><span class='ident' data-type="(
-    ~name: string,
-    ~?age: option(int),
-    array(
-        ReasonReact.reactElement
-    )
-) => ReasonReact.component(
+  ~?key: option(string),
+  ~?ref: option(Js.nullable(ReasonReact.reactRef) => unit),
+  ReasonReact.component(
     ReasonReact.stateless,
     ReasonReact.noRetainedProps,
     ReasonReact.actionless
+  )
+) => ReasonReact.reactElement"><span class='ident' data-type="(
+  ~name: string,
+  ~?age: option(int),
+  array(ReasonReact.reactElement)
+) => ReasonReact.component(
+  ReasonReact.stateless,
+  ReasonReact.noRetainedProps,
+  ReasonReact.actionless
 )">&lt;Foo name=<span class='string' data-type="string">&quot;Reason&quot;</span> /&gt;</span></span>
 | <span class='pattern-constructor' data-type="option(int)">Some</span>(<span class='pattern-ident' data-type="int">nonNullableAge</span>) =&gt; <span class='ident' data-type="(
-    ~?key: option(string),
-    ~?ref: option(
-        Js.nullable(ReasonReact.reactRef) => unit
-    ),
-    ReasonReact.component(
-        ReasonReact.stateless,
-        ReasonReact.noRetainedProps,
-        ReasonReact.actionless
-    )
-) => ReasonReact.reactElement"><span class='ident' data-type="(
-    ~name: string,
-    ~?age: option(int),
-    array(
-        ReasonReact.reactElement
-    )
-) => ReasonReact.component(
+  ~?key: option(string),
+  ~?ref: option(Js.nullable(ReasonReact.reactRef) => unit),
+  ReasonReact.component(
     ReasonReact.stateless,
     ReasonReact.noRetainedProps,
     ReasonReact.actionless
+  )
+) => ReasonReact.reactElement"><span class='ident' data-type="(
+  ~name: string,
+  ~?age: option(int),
+  array(ReasonReact.reactElement)
+) => ReasonReact.component(
+  ReasonReact.stateless,
+  ReasonReact.noRetainedProps,
+  ReasonReact.actionless
 )">&lt;Foo name=<span class='string' data-type="string">&quot;Reason&quot;</span> age=<span class='ident' data-type="int">nonNullableAge</span> /&gt;</span></span>
 };
 <span class='ident' data-type="ReasonReact.reactElement => unit">sandboxRender</span>(<span class='ident' data-type="ReasonReact.reactElement">el</span>);</code></pre>
@@ -443,11 +433,11 @@ let el = switch (ageFromProps) {
 | Some(nonNullableAge) => <Foo name="Reason" age=nonNullableAge />
 };
 sandboxRender(el);</script>
-  <div data-block-id='5' data-context="div" class='block-target'></div><script type='docre-bundle' data-block-id='5'>
+  <div data-block-id='5' data-context="div" data-block-syntax="re" class='block-target'></div><script type='docre-bundle' data-block-id='5'>
 ;(function() { // generated by pack.re
 let modules = {}
 let initializers = {
-    1: function(module, exports, require) {// Generated by BUCKLESCRIPT VERSION 2.2.4, PLEASE EDIT WITH CARE
+    1: function(module, exports, require) {// Generated by BUCKLESCRIPT VERSION 2.2.3, PLEASE EDIT WITH CARE
 'use strict';
 
 var ReactDOMRe = window.packRequire("./lib/js/src/ReactDOMRe.js");
@@ -516,7 +506,8 @@ sandboxRender(&lt;Foo name=&quot;Reason&quot; age=?ageFromProps /&gt;)</code></p
 #};
 let ageFromProps = Some(10);
 sandboxRender(<Foo name="Reason" age=?ageFromProps />)</script>
-  <div class='type-error'>Type Error:\nFile &quot;&quot;, line 9, characters 0-13:
+  <div class='type-error'>Type Error:
+File &quot;&quot;, line 9, characters 0-13:
 Error: Unbound value sandboxRender</div>
 </div>
 
