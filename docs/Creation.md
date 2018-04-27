@@ -117,7 +117,7 @@ sandboxRender(el);
 
 Cumbersome. Fortunately, here's a better way to explicitly pass an optional value:
 
-```reason;use(Foo)
+```reason;use(Foo);use(sandbox);div
 let ageFromProps = Some(10);
 sandboxRender(<Foo name="Reason" age=?ageFromProps />)
 ```

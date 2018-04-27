@@ -6,7 +6,7 @@
  * let sandboxRender = (el) => ReactDOMRe.renderToElementWithId(el, sandboxDivId);
  * ```
  *
- * ```reason;use(sandbox);shared(render)
+ * ```reason;use(sandbox);shared(render);hide;skip
  * sandboxRender({
  * %{code}%
  * })

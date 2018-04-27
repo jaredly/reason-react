@@ -387,6 +387,8 @@ return Colors
     for (var attr in attrs) {
       if (attr === 'style') {
         Object.assign(node.style, attrs[attr])
+      } else if (attr === 'onclick') {
+        node.onclick = attrs[attr]
       } else {
         node.setAttribute(attr, attrs[attr])
       }
@@ -774,6 +776,69 @@ var initBlocks = () => {
     editButton.addEventListener('click', startEditing)
 
   })
+
+  var style = document.createElement('style')
+  document.head.appendChild(style)
+  var show = lang => {
+    localStorage.preferredSyntax = lang
+    style.innerText = `
+    .syntax-buttons {
+      position: fixed;
+      top: 0;
+      right: 0;
+      padding: 4px 8px;
+      z-index: 1000;
+      background: rgba(255,255,255,0.8);
+      border-bottom-left-radius: 4px;
+    }
+    @media (max-width: 1000px) {
+      .syntax-buttons {
+        position: absolute;
+      }
+    }
+
+    .syntax-buttons button {
+      background: white;
+      border: none;
+      border-radius: 3px;
+      padding: 4px 8px;
+      margin: 0 4px;
+    }
+    .button-picker-${lang} {
+      background-color: #eee;
+      font-weight: bold;
+    }
+    div.code-block { display: none } div.code-block[data-block-syntax=${lang}] { display: block }
+    .code-block[data-block-syntax=ml] pre > code::after {
+      content: 'ml';
+      position: absolute;
+      bottom: 0;
+      right: 4px;
+      color: #999;
+      pointer-events: none;
+    }
+    .code-block[data-block-syntax=re] pre > code::after {
+      content: 're';
+      position: absolute;
+      bottom: 0;
+      right: 4px;
+      color: #999;
+      pointer-events: none;
+    }
+    .code-block pre {
+      position: relative;
+    }
+    `
+  }
+  let lang = localStorage.preferredSyntax || 're'
+  show(lang)
+  var buttons = div({class: 'syntax-buttons', style: {
+  }}, [
+    'Syntax: ',
+    node('button', {class: 'button-picker-ml', onclick: () => show('ml')}, ['ocaml']),
+    node('button', {class: 'button-picker-re', onclick: () => show('re')}, ['reason']),
+  ]);
+  document.body.appendChild(buttons)
 }
 
 window.addEventListener('load', () => {
