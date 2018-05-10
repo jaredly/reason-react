@@ -3,7 +3,7 @@
   comma. If this screws with your editor highlighting, please tell us by filing
   an issue! */
 {
-  "name" : "reason-react",
+  "name" : "@jaredly/reason-react",
   "sources": "src",
   "reason" : {"react-jsx" : 2},
   "refmt": 3,
