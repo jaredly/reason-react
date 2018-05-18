@@ -32,10 +32,10 @@
 <a href="#self" class='level-2 header'><code>self</code></a>
       </div>
       <div class='project-title'>Package modules</div><div class='project-listing'><a href="./api/ReactDOMRe.html">ReactDOMRe</a>
-<a href="./api/ReactEventRe.html">ReactEventRe</a>
-<a href="./api/ReasonReactOptimizedCreateClass.html">ReasonReactOptimizedCreateClass</a>
 <a href="./api/ReactDOMServerRe.html">ReactDOMServerRe</a>
-<a href="./api/ReasonReact.html">ReasonReact</a></div>
+<a href="./api/ReactEventRe.html">ReactEventRe</a>
+<a href="./api/ReasonReact.html">ReasonReact</a>
+<a href="./api/ReasonReactOptimizedCreateClass.html">ReasonReactOptimizedCreateClass</a></div>
     </div>
     </div>
   
@@ -65,7 +65,7 @@
   ReasonReact.actionless
 )">ReasonReact.statelessComponent</span>(<span class='string' data-type="string">&quot;Greeting&quot;</span>);</code></pre>
   
-  <script type='docre-source' data-block-id="9">let component = ReasonReact.statelessComponent("Greeting");</script>
+  
   
 </div><div class='code-block' data-block-syntax="ml">
   
@@ -86,10 +86,7 @@ let <span class='pattern-ident' data-type="ReasonReact.componentSpec(
 )">ReasonReact.statelessComponent</span>
     ((&quot;Greeting&quot;)[@reason.raw_literal &quot;Greeting&quot;])</code></pre>
   
-  <script type='docre-source' data-block-id="9-alt">[@@@ocaml.ppx.context { cookies = [] }]
-let component =
-  ReasonReact.statelessComponent
-    (("Greeting")[@reason.raw_literal "Greeting"])</script>
+  
   
 </div>
 
@@ -691,10 +688,7 @@ let require = (id) => {
 ) => ReasonReact.reactElement">&lt;div /&gt;</span>
 }</span></code></pre>
   
-  <script type='docre-source' data-block-id="5">let make = _children => {
-  ...(ReasonReact.statelessComponent("Greeting")),
-  render: self => <div />
-}</script>
+  
   
 </div><div class='code-block' data-block-syntax="ml">
   
@@ -734,13 +728,7 @@ let <span class='pattern-ident' data-type="'a => ReasonReact.componentSpec(
 ) => ReasonReact.reactElement">ReactDOMRe.createElement</span> <span class='string' data-type="string">&quot;div&quot;</span> [||])
   }</span></code></pre>
   
-  <script type='docre-source' data-block-id="5-alt">[@@@ocaml.ppx.context { cookies = [] }]
-let make _children =
-  {
-    (ReasonReact.statelessComponent
-       (("Greeting")[@reason.raw_literal "Greeting"])) with
-    render = (fun self  -> ReactDOMRe.createElement "div" [||])
-  }</script>
+  
   
 </div>
 
